@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Grid, Paper, Divider } from "@mui/material";
+import 'react-quill/dist/quill.snow.css';
+import ReactQuill, { Quill,editor } from 'react-quill';
 
 export default function Template1(props) {
+  useEffect(() => {
+    console.log("fdmkf", selectedTemplate, isPreview);
+  }, []);
   const { selectedTemplate, isPreview = false } = props;
   return (
     <Paper
@@ -15,6 +20,7 @@ export default function Template1(props) {
       }}
     >
       {/* Sidebar */}
+      {console.log(isPreview)}
       <Box
         sx={{
           width: "10%",
@@ -36,9 +42,11 @@ export default function Template1(props) {
             sx={{
               fontWeight: "bold",
               color: "#333",
-              fontSize: isPreview
-                ? "10pt"
-                : selectedTemplate.styles.HeadingSize,
+              fontSize:
+                // isPreview
+                //   ? "10pt"
+                //   :
+                selectedTemplate.styles.headingSize + "pt",
             }}
           >
             {selectedTemplate.personaldetails.firstname +
@@ -56,9 +64,11 @@ export default function Template1(props) {
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    // isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
               >
                 SUMMARY
@@ -66,9 +76,11 @@ export default function Template1(props) {
               <Typography
                 variant="div"
                 sx={{
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize + "pt",
                 }}
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.summary.value,
@@ -82,9 +94,11 @@ export default function Template1(props) {
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
                 marginTop={"10px"}
               >
@@ -94,9 +108,11 @@ export default function Template1(props) {
                 variant="body1"
                 sx={{
                   fontWeight: "bold",
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
               >
                 SOFTWARE ENGINEER
@@ -105,9 +121,11 @@ export default function Template1(props) {
                 variant="body2"
                 sx={{
                   color: "gray",
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    // isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
               >
                 DACES INDIA PRIVATE LIMITED, CHENNAI • September 2022 - Current
@@ -116,9 +134,11 @@ export default function Template1(props) {
                 style={{
                   marginTop: "5px",
                   paddingLeft: "10px",
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
               >
                 <li>
@@ -145,33 +165,41 @@ export default function Template1(props) {
                 backgroundColor: "#eaf4fc",
                 padding: "7px 10px",
                 borderRadius: "3px",
-                fontSize: isPreview ? "8pt" : selectedTemplate.styles.textSize,
+                fontSize:
+                  // isPreview ? "8pt" :
+                  selectedTemplate.styles.textSize,
               }}
             >
               <Typography
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    // isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
               >
                 CONTACT
               </Typography>
               <Box
                 sx={{
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    // isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
               >
                 <Typography
                   variant="body1"
                   sx={{
-                    fontSize: isPreview
-                      ? "8pt"
-                      : selectedTemplate.styles.textSize,
+                    fontSize:
+                      // isPreview
+                      //   ? "8pt"
+                      //   :
+                      selectedTemplate.styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.phone}
@@ -179,9 +207,11 @@ export default function Template1(props) {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontSize: isPreview
-                      ? "8pt"
-                      : selectedTemplate.styles.textSize,
+                    fontSize:
+                      // isPreview
+                      //   ? "8pt"
+                      //   :
+                      selectedTemplate.styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.email}
@@ -189,9 +219,11 @@ export default function Template1(props) {
                 <Typography
                   variant="body1"
                   sx={{
-                    fontSize: isPreview
-                      ? "8pt"
-                      : selectedTemplate.styles.textSize,
+                    fontSize:
+                      // isPreview
+                      //   ? "8pt"
+                      //   :
+                      selectedTemplate.styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.city +
@@ -213,9 +245,11 @@ export default function Template1(props) {
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
               >
                 SKILLS
@@ -224,9 +258,11 @@ export default function Template1(props) {
               <Typography
                 variant="div"
                 sx={{
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.skills.value,
@@ -245,9 +281,11 @@ export default function Template1(props) {
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
               >
                 EDUCATION AND TRAINING
@@ -256,17 +294,21 @@ export default function Template1(props) {
                 <Box
                   key={index}
                   sx={{
-                    fontSize: isPreview
-                      ? "8pt"
-                      : selectedTemplate.styles.textSize,
+                    fontSize:
+                      //  isPreview
+                      //   ? "8pt"
+                      //   :
+                      selectedTemplate.styles.textSize,
                   }}
                 >
                   <Typography
                     variant="body1"
                     sx={{
-                      fontSize: isPreview
-                        ? "8pt"
-                        : selectedTemplate.styles.textSize,
+                      fontSize:
+                        //  isPreview
+                        //   ? "8pt"
+                        //   :
+                        selectedTemplate.styles.textSize,
                     }}
                   >
                     {edu.degree} in category
@@ -276,9 +318,11 @@ export default function Template1(props) {
                     variant="body2"
                     sx={{
                       color: "gray",
-                      fontSize: isPreview
-                        ? "8pt"
-                        : selectedTemplate.styles.textSize,
+                      fontSize:
+                        //  isPreview
+                        //   ? "8pt"
+                        //   :
+                        selectedTemplate.styles.textSize,
                     }}
                   >
                     {edu.institute}({edu.year})
@@ -298,9 +342,11 @@ export default function Template1(props) {
                 variant="h6"
                 sx={{
                   color: "#00a8e8",
-                  fontSize: isPreview
-                    ? "10pt"
-                    : selectedTemplate.styles.HeadingSize,
+                  fontSize:
+                    //  isPreview
+                    //   ? "10pt"
+                    //   :
+                    selectedTemplate.styles.headingSize + "pt",
                 }}
               >
                 CERTIFICATIONS
@@ -309,9 +355,11 @@ export default function Template1(props) {
                 style={{
                   margin: 0,
                   paddingLeft: "10px",
-                  fontSize: isPreview
-                    ? "8pt"
-                    : selectedTemplate.styles.textSize,
+                  fontSize:
+                    // isPreview
+                    //   ? "8pt"
+                    //   :
+                    selectedTemplate.styles.textSize,
                 }}
               >
                 {selectedTemplate.certificate?.value.map((cer, index) => (

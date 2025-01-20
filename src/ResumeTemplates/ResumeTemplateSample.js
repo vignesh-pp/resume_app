@@ -1,147 +1,98 @@
 import React, { useState } from "react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { Box, Button, Divider } from "@mui/material";
+
+// Define initial sections of the resume
+const initialSections = [
+  { id: "1", label: "Personal Details" },
+  { id: "2", label: "Summary" },
+  { id: "3", label: "Skills" },
+  { id: "4", label: "Experience" },
+  { id: "5", label: "Education" },
+  { id: "6", label: "Certificates" },
+];
 
 const ResumeTemplate = () => {
-  const [templates, setTemplates] = useState([
-    {
-      id: 1,
-      name: "Dynamic Resume Template",
-      fields: {
-        personalDetails: {
-          label: "Personal Details",
-          fields: [
-            { key: "firstname", label: "First Name", type: "text", value: "John" },
-            { key: "lastname", label: "Last Name", type: "text", value: "Doe" },
-            { key: "email", label: "Email", type: "email", value: "john.doe@example.com" },
-            { key: "phone", label: "Phone", type: "text", value: "1234567890" },
-            { key: "photo", label: "Photo", type: "file", value: null }
-          ]
-        },
-        summary: {
-          label: "Summary",
-          fields: [
-            { key: "summary", label: "Professional Summary", type: "textarea", value: "Experienced developer with a passion for building scalable applications." }
-          ]
-        },
-        skills: {
-          label: "Skills",
-          fields: [
-            { key: "skills", label: "Skill List", type: "list", value: ["JavaScript", "React", "Node.js"] }
-          ]
-        }
-      },
-      stepsOrder: ["personalDetails", "summary", "skills"],
-      styles: {
-        bgColor: "#f4f4f4",
-        textColor: "#333333",
-        fontFamily: "Arial, sans-serif",
-        headingSize: "16pt",
-        textSize: "12pt",
-        sectionSpacing: "10px",
-        lineSpacing: "1.5"
-      }
-    }
-  ]);
+  // Manage state for sections (resume parts)
+  const [sections, setSections] = useState(initialSections);
 
-  const handleFieldUpdate = (templateId, sectionKey, fieldKey, newValue) => {
-    setTemplates((prevTemplates) =>
-      prevTemplates.map((template) => {
-        if (template.id === templateId) {
-          const updatedFields = { ...template.fields };
-          updatedFields[sectionKey].fields = updatedFields[sectionKey].fields.map((field) =>
-            field.key === fieldKey ? { ...field, value: newValue } : field
-          );
-          return { ...template, fields: updatedFields };
-        }
-        return template;
-      })
-    );
+  // Handle the drag end event to reorder the sections
+  const onDragEnd = (result) => {
+    const { source, destination } = result;
+
+    // If dropped outside the droppable area, do nothing
+    if (!destination) return;
+
+    // Reorder the sections based on the drag result
+    const reorderedSections = Array.from(sections);
+    const [movedSection] = reorderedSections.splice(source.index, 1); // Remove dragged section
+    reorderedSections.splice(destination.index, 0, movedSection); // Insert it at the new position
+
+    // Update state with the reordered sections
+    setSections(reorderedSections);
   };
 
   return (
-    <div style={{ display: "flex", padding: "20px", gap: "20px" }}>
-      {/* Form Section */}
-      <div style={{ flex: 1, border: "1px solid #ccc", padding: "20px", borderRadius: "8px" }}>
-        {templates.map((template) => (
-          <div key={template.id}>
-            <h2>{template.name}</h2>
-            {template.stepsOrder.map((sectionKey) => (
-              <div key={sectionKey} style={{ marginBottom: "20px" }}>
-                <h4>{template.fields[sectionKey].label}</h4>
-                {template.fields[sectionKey].fields.map((field) => (
-                  <div key={field.key} style={{ marginBottom: "10px" }}>
-                    <label>{field.label}: </label>
-                    {field.type === "text" || field.type === "email" ? (
-                      <input
-                        type={field.type}
-                        value={field.value}
-                        onChange={(e) => handleFieldUpdate(template.id, sectionKey, field.key, e.target.value)}
-                        style={{ padding: "5px", width: "100%" }}
-                      />
-                    ) : field.type === "textarea" ? (
-                      <textarea
-                        value={field.value}
-                        onChange={(e) => handleFieldUpdate(template.id, sectionKey, field.key, e.target.value)}
-                        style={{ padding: "5px", width: "100%", height: "80px" }}
-                      />
-                    ) : field.type === "list" ? (
-                      <ul>
-                        {field.value.map((item, index) => (
-                          <li key={index}>{item}</li>
-                        ))}
-                      </ul>
-                    ) : null}
-                  </div>
-                ))}
-              </div>
+    <DragDropContext onDragEnd={onDragEnd}>
+      <Droppable droppableId="sections" direction="vertical">
+        {(provided) => (
+          <Box
+            ref={provided.innerRef}
+            {...provided.droppableProps}
+            sx={{
+              padding: "20px",
+              borderRadius: "8px",
+              backgroundColor: "#f4f4f4",
+              minHeight: "200px", // Ensure there's enough space for dragging
+            }}
+          >
+            <h3>Resume Sections</h3>
+            {sections.map((section, index) => (
+              <Draggable
+                key={section.id}
+                draggableId={section.id}
+                index={index}
+              >
+                {(provided) => (
+                  <Box
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                    sx={{
+                      padding: "10px",
+                      marginBottom: "10px",
+                      backgroundColor: "#fff",
+                      borderRadius: "8px",
+                      boxShadow: "0 2px 5px rgba(0, 0, 0, 0.1)",
+                      cursor: "move",
+                    }}
+                  >
+                    {section.label}
+                  </Box>
+                )}
+              </Draggable>
             ))}
-          </div>
-        ))}
-      </div>
+            {provided.placeholder}
+          </Box>
+        )}
+      </Droppable>
 
-      {/* Preview Section */}
-      <div style={{ flex: 1, border: "1px solid #ccc", padding: "20px", borderRadius: "8px" }}>
-        {templates.map((template) => {
-          const { fields, styles, stepsOrder } = template;
-
-          const containerStyle = {
-            backgroundColor: styles.bgColor,
-            color: styles.textColor,
-            fontFamily: styles.fontFamily,
-            padding: "20px",
-            lineHeight: styles.lineSpacing
-          };
-
-          const headingStyle = {
-            fontSize: styles.headingSize,
-            marginBottom: styles.sectionSpacing
-          };
-
-          return (
-            <div key={template.id} style={containerStyle}>
-              <h2 style={{ ...headingStyle, textAlign: "center" }}>{template.name}</h2>
-              {stepsOrder.map((sectionKey) => (
-                <div key={sectionKey} style={{ marginBottom: styles.sectionSpacing }}>
-                  <h4 style={headingStyle}>{fields[sectionKey].label}</h4>
-                  {fields[sectionKey].fields.map((field) => (
-                    <div key={field.key}>
-                      {field.type === "list" ? (
-                        <ul>
-                          {field.value.map((item, index) => (
-                            <li key={index}>{item}</li>
-                          ))}
-                        </ul>
-                      ) : (
-                        <p>{field.value}</p>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          );
-        })}
-      </div>
-    </div>
+      {/* Optional: Button to add new sections dynamically */}
+      <Button
+        variant="outlined"
+        onClick={() =>
+          setSections([
+            ...sections,
+            {
+              id: `${sections.length + 1}`,
+              label: `New Section ${sections.length + 1}`,
+            },
+          ])
+        }
+      >
+        Add Section
+      </Button>
+    </DragDropContext>
   );
 };
 
