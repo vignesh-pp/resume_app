@@ -1014,16 +1014,32 @@ function TemplatePreview(props) {
                   isPreview={false}
                 />
               </Box>
-              <Box className="col-3 text-center">
-                {steps.map((step, index) => (
-                  <Button
-                    key={index}
-                    style={{ display: index === 0 ? "none" : "block" }}
-                    onClick={() => setActiveStep(index)}
-                  >
-                    {step.label}{" "}
-                  </Button>
-                ))}
+              <Box
+                className="col-3 text-center"
+                style={{ position: "fixed", right: "50px", top: "20px" }}
+              >
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "1fr 1fr", // Two equal columns
+                    gap: "0px", // Spacing between items
+                    alignItems: "center",
+                  }}
+                >
+                  {steps.map((step, index) => (
+                    <Button
+                      key={index}
+                      style={{
+                        display: index === 0 ? "none" : "block",
+                        background: "white",
+                        border: "1px solid black",
+                      }}
+                      onClick={() => setActiveStep(index)}
+                    >
+                      {step.label}{" "}
+                    </Button>
+                  ))}
+                </div>
                 <Button
                   onClick={() => {
                     console.log("save", selectedTemplate);

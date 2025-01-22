@@ -46,7 +46,7 @@ export default function Template1(props) {
                 // isPreview
                 //   ? "10pt"
                 //   :
-                selectedTemplate.styles.headingSize + "pt",
+                selectedTemplate.template_styles.headingSize + "pt",
             }}
           >
             {selectedTemplate.personaldetails.firstname +
@@ -66,7 +66,7 @@ export default function Template1(props) {
                   color: "#00a8e8",
                   fontSize: isPreview
                     ? "10pt"
-                    : `${selectedTemplate.styles.headingSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.headingSize}pt`, // Conditional font size
                 }}
               >
                 SUMMARY
@@ -76,7 +76,7 @@ export default function Template1(props) {
                 sx={{
                   fontSize: isPreview
                     ? "8pt"
-                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.textSize}pt`, // Conditional font size
                 }}
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.summary.value,
@@ -92,7 +92,7 @@ export default function Template1(props) {
                   color: "#00a8e8",
                   fontSize: isPreview
                     ? "10pt"
-                    : `${selectedTemplate.styles.headingSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.headingSize}pt`, // Conditional font size
                 }}
                 marginTop={"10px"}
               >
@@ -104,7 +104,7 @@ export default function Template1(props) {
                   fontWeight: "bold",
                   fontSize: isPreview
                     ? "8pt"
-                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.textSize}pt`, // Conditional font size
                 }}
               >
                 SOFTWARE ENGINEER
@@ -115,7 +115,7 @@ export default function Template1(props) {
                   color: "gray",
                   fontSize: isPreview
                     ? "8pt"
-                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.textSize}pt`, // Conditional font size
                 }}
               >
                 DACES INDIA PRIVATE LIMITED, CHENNAI • September 2022 - Current
@@ -126,7 +126,7 @@ export default function Template1(props) {
                   paddingLeft: "10px",
                   fontSize: isPreview
                     ? "8pt"
-                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
+                    : `${selectedTemplate.template_styles.textSize}pt`, // Conditional font size
                 }}
               >
                 <li>
@@ -155,7 +155,7 @@ export default function Template1(props) {
                 borderRadius: "3px",
                 fontSize:
                   // isPreview ? "8pt" :
-                  selectedTemplate.styles.textSize,
+                  selectedTemplate.template_styles.textSize,
               }}
             >
               <Typography
@@ -166,7 +166,7 @@ export default function Template1(props) {
                     // isPreview
                     //   ? "10pt"
                     //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                    selectedTemplate.template_styles.headingSize + "pt",
                 }}
               >
                 CONTACT
@@ -177,7 +177,7 @@ export default function Template1(props) {
                     // isPreview
                     //   ? "8pt"
                     //   :
-                    selectedTemplate.styles.textSize,
+                    selectedTemplate.template_styles.textSize,
                 }}
               >
                 <Typography
@@ -187,7 +187,7 @@ export default function Template1(props) {
                       // isPreview
                       //   ? "8pt"
                       //   :
-                      selectedTemplate.styles.textSize,
+                      selectedTemplate.template_styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.phone}
@@ -199,7 +199,7 @@ export default function Template1(props) {
                       // isPreview
                       //   ? "8pt"
                       //   :
-                      selectedTemplate.styles.textSize,
+                      selectedTemplate.template_styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.email}
@@ -211,7 +211,7 @@ export default function Template1(props) {
                       // isPreview
                       //   ? "8pt"
                       //   :
-                      selectedTemplate.styles.textSize,
+                      selectedTemplate.template_styles.textSize,
                   }}
                 >
                   {selectedTemplate.personaldetails.city +
@@ -237,7 +237,7 @@ export default function Template1(props) {
                     //  isPreview
                     //   ? "10pt"
                     //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                    selectedTemplate.template_styles.headingSize + "pt",
                 }}
               >
                 SKILLS
@@ -250,7 +250,7 @@ export default function Template1(props) {
                     //  isPreview
                     //   ? "8pt"
                     //   :
-                    selectedTemplate.styles.textSize,
+                    selectedTemplate.template_styles.textSize,
                 }}
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.skills.value,
@@ -273,7 +273,7 @@ export default function Template1(props) {
                     //  isPreview
                     //   ? "10pt"
                     //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                    selectedTemplate.template_styles.headingSize + "pt",
                 }}
               >
                 EDUCATION AND TRAINING
@@ -286,7 +286,7 @@ export default function Template1(props) {
                       //  isPreview
                       //   ? "8pt"
                       //   :
-                      selectedTemplate.styles.textSize,
+                      selectedTemplate.template_styles.textSize,
                   }}
                 >
                   <Typography
@@ -296,7 +296,7 @@ export default function Template1(props) {
                         //  isPreview
                         //   ? "8pt"
                         //   :
-                        selectedTemplate.styles.textSize,
+                        selectedTemplate.template_styles.textSize,
                     }}
                   >
                     {edu.degree} in category
@@ -310,7 +310,7 @@ export default function Template1(props) {
                         //  isPreview
                         //   ? "8pt"
                         //   :
-                        selectedTemplate.styles.textSize,
+                        selectedTemplate.template_styles.textSize,
                     }}
                   >
                     {edu.institution}({edu.year})
@@ -334,7 +334,7 @@ export default function Template1(props) {
                     //  isPreview
                     //   ? "10pt"
                     //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                    selectedTemplate.template_styles.headingSize + "pt",
                 }}
               >
                 CERTIFICATIONS
@@ -347,7 +347,7 @@ export default function Template1(props) {
                     // isPreview
                     //   ? "8pt"
                     //   :
-                    selectedTemplate.styles.textSize,
+                    selectedTemplate.template_styles.textSize,
                 }}
               >
                 {selectedTemplate.certificate?.value.map((cer, index) => (

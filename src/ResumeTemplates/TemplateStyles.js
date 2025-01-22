@@ -24,7 +24,7 @@ const TemplateStyles = (props) => {
   const handleStyleChange = (key, value) => {
     setSelectedTemplate((prevStyles) => {
       const updatedTemplate = { ...prevStyles };
-      updatedTemplate.styles[key] = value;
+      updatedTemplate.template_styles[key] = value;
       return updatedTemplate;
     });
 
@@ -87,7 +87,7 @@ const TemplateStyles = (props) => {
       </Typography>
       <Typography>Font Style</Typography>
       <Select
-        value={selectedTemplate.styles.fontFamily}
+        value={selectedTemplate.template_styles.fontFamily}
         onChange={(e) => handleStyleChange("fontFamily", e.target.value)}
         fullWidth
         sx={{ mb: 2, backgroundColor: "white", color: "black" }}
@@ -99,7 +99,7 @@ const TemplateStyles = (props) => {
 
       <Typography>Font Size</Typography>
       <Slider
-        value={selectedTemplate.styles.textSize}
+        value={selectedTemplate.template_styles.textSize}
         min={4}
         max={16}
         valueLabelDisplay="auto"
@@ -109,7 +109,7 @@ const TemplateStyles = (props) => {
 
       <Typography>Heading Size</Typography>
       <Slider
-        value={selectedTemplate.styles.headingSize}
+        value={selectedTemplate.template_styles.headingSize}
         min={4}
         max={24}
         valueLabelDisplay="auto"
@@ -125,7 +125,7 @@ const TemplateStyles = (props) => {
       </Typography>
       <Typography>Section Spacing</Typography>
       <Slider
-        value={selectedTemplate.styles.sectionSpacing}
+        value={selectedTemplate.template_styles.sectionSpacing}
         min={0}
         max={50}
         valueLabelDisplay="auto"
@@ -135,7 +135,7 @@ const TemplateStyles = (props) => {
 
       <Typography>Paragraph Spacing</Typography>
       <Slider
-        value={selectedTemplate.styles.paragraphIndent}
+        value={selectedTemplate.template_styles.paragraphIndent}
         min={0}
         max={50}
         valueLabelDisplay="auto"
@@ -145,7 +145,7 @@ const TemplateStyles = (props) => {
 
       <Typography>Line Spacing</Typography>
       <Slider
-        value={selectedTemplate.styles.lineSpacing}
+        value={selectedTemplate.template_styles.lineSpacing}
         min={1}
         max={3}
         step={0.1}
