@@ -11,7 +11,7 @@ import Template1 from "./SampleTemplates/Template1";
 import Resume1 from "./SampleTemplates/Resume1";
 
 export default function SelectedTemplate(props) {
-  const { selectedTemplate } = props;
+  const { selectedTemplate, isPreview } = props;
   return (
     <>
       {selectedTemplate.template_name === "Template1" && (
@@ -20,7 +20,7 @@ export default function SelectedTemplate(props) {
 
       {selectedTemplate.template_name === "resume1" && (
         // <Template1 selectedTemplate={selectedTemplate} isPreview={true} />
-        <Resume1 selectedTemplate={selectedTemplate} />
+        <Resume1 selectedTemplate={selectedTemplate} isPreview={isPreview} />
       )}
     </>
   );

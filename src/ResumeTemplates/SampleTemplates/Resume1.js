@@ -9,7 +9,12 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
   const headSize = isPreview ? "8pt" : `${selectedTemplate.styles.headSize}pt`;
 
   return (
-    <Box sx={{ padding: 1, background: "white" }}>
+    <div style={{ padding: "5px", background: "white" }} id="resume">
+      <style>
+        {`ul{
+                padding-left: 0.8rem;
+            }`}
+      </style>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <div>
           <div style={{ color: "#16365f", fontSize: headSize }}>
@@ -54,8 +59,8 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
       <hr style={{ margin: "0.5rem 0" }} />
 
       <div style={{ color: "#16365f", fontSize: headSize }}>TECH SKILLS</div>
-      <Box
-        sx={{
+      <div
+        style={{
           display: "grid",
           gap: "5px",
           gridTemplateColumns: "repeat(6, 1fr)",
@@ -84,71 +89,74 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
             }}
           />
         )}
-      </Box>
+      </div>
 
       <hr style={{ margin: "0.5rem 0" }} />
 
-      <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-        <Box>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div>
           <div style={{ color: "#16365f", fontSize: headSize }}>EDUCATION</div>
           {selectedTemplate.education?.value.map((edu, index) => (
-            <Box key={index}>
+            <div key={index}>
               <div style={{ color: "#d4731b", fontSize: textSize }}>
-                {edu.institution}
+                {edu.degree}
               </div>
               <div style={{ color: "#7f7f7f", fontSize: textSize }}>
-                ({edu.year})
+                <i>{edu.institution}</i>
               </div>
-            </Box>
+            </div>
           ))}
 
           <div style={{ color: "#16365f", fontSize: headSize }}>
             WORK EXPERIENCE
           </div>
           {selectedTemplate?.experience?.value.map((job, index) => (
-            <Box key={index}>
+            <div key={index}>
               <div style={{ color: "#16365f", fontSize: textSize }}>
                 {job.title}
               </div>
               <div style={{ color: "#d4731b", fontSize: textSize }}>
                 {job.company} • {job.location} • ({job.duration})
               </div>
-            </Box>
+            </div>
           ))}
-        </Box>
+        </div>
 
-        <Box sx={{ textAlign: "right" }}>
+        <div style={{ textAlign: "right" }}>
           <div style={{ color: "#16365f", fontSize: headSize }}>
             CERTIFICATIONS / TRAINING
           </div>
           {selectedTemplate?.certificate?.value.map((cert, index) => (
-            <Box key={index}>
+            <div key={index}>
               <div style={{ color: "#678a50", fontSize: textSize }}>
                 {cert.name}
               </div>
               <div style={{ color: "#898989", fontSize: textSize }}>
                 {cert.year}
               </div>
-            </Box>
+            </div>
           ))}
-        </Box>
-      </Box>
+        </div>
+      </div>
 
       <hr style={{ margin: "0.5rem 0" }} />
 
       <div style={{ color: "#16365f", fontSize: headSize }}>KEY PROJECTS</div>
       {selectedTemplate?.projects?.value?.map((project, index) => (
-        <Box key={index}>
+        <div key={index}>
           <div style={{ color: "#d4731b", fontSize: textSize }}>
             {project.name} • {project.location} • {project.duration} •{" "}
             {project.role}
           </div>
-          <div style={{ color: "#7f7f7f", fontSize: textSize }}>
-            {project.description}
-          </div>
-        </Box>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: project.description,
+            }}
+            style={{ color: "#7f7f7f", fontSize: textSize }}
+          ></div>
+        </div>
       ))}
-    </Box>
+    </div>
   );
 };
 

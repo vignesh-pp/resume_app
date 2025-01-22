@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -12,8 +12,32 @@ import HomeIcon from "@mui/icons-material/Home";
 import PersonIcon from "@mui/icons-material/Person";
 import SchoolIcon from "@mui/icons-material/School";
 import BuildIcon from "@mui/icons-material/Build";
+import axios from "axios";
 
 export default function Template() {
+  useEffect(() => {
+    axios
+      .post("http://localhost:3000/login/", {
+        name: "vignesh.perumal@data-aces.com",
+        password: 12345678,
+      })
+      .then((res) => {
+        console.log("res", res.data);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+
+    // axios
+    //   .get("http://localhost:8000/api/resume-template/")
+    //   .then((res) => {
+    //     console.log("res", res.data);
+    //     // setAllTemplates(res.data);
+    //   })
+    //   .catch((err) => {
+    //     console.log("err", err);
+    //   });
+  }, []);
   const [allTemplates, setAllTemplates] = useState([
     {
       personaldetails: {
@@ -133,7 +157,8 @@ export default function Template() {
       },
       summary: {
         label: "summary",
-        value: `Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.`,
+        value:
+          "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
       },
       skills: {
         label: "skills",
@@ -208,7 +233,7 @@ export default function Template() {
           {
             name: "Demo",
             role: "developer",
-            description: "nds fksf sdfnksd nfsdlfsdf",
+            description: "working on demo project",
             year: "2101",
             location: "India",
             duration: "2 years",
@@ -245,6 +270,7 @@ export default function Template() {
         { label: "Skills", icon: <BuildIcon /> },
         { label: "Education", icon: <SchoolIcon /> },
         { label: "Certificate", icon: <SchoolIcon /> },
+        { label: "Projects", icon: <SchoolIcon /> },
       ],
     },
   ]);

@@ -15,6 +15,8 @@ import "react-quill/dist/quill.snow.css"; // Import styles
 import TemplateStyles from "./TemplateStyles";
 import CreatableSelect from "react-select/creatable";
 import { Chip } from "@mui/material";
+import html2pdf from "html2pdf.js";
+// import { jsPDF } from "jspdf";
 
 function TemplatePreview(props) {
   const { selectedTemplate, setSelectedTemplate, setActiveTab } = props;
@@ -214,6 +216,29 @@ function TemplatePreview(props) {
     // fontWeight: "bold",
   };
 
+  // const generatePdf = () => {
+  //   const doc = new jsPDF({
+  //     orientation: "portrait",
+  //     unit: "px",
+  //     format: "a4",
+  //   });
+
+  //   const element = document.getElementById("resume");
+
+  //   // Use the html method to render the content as selectable text
+  //   doc.html(element, {
+  //     callback: (doc) => {
+  //       // Open the PDF in a new tab
+  //       window.open(doc.output("bloburl"), "_blank");
+  //     },
+  //     x: 10,
+  //     y: 10,
+  //     html2canvas: {
+  //       scale: 1, // Scaling to maintain clarity
+  //     },
+  //   });
+  // };
+
   return (
     <Box
       sx={{
@@ -222,7 +247,15 @@ function TemplatePreview(props) {
       }}
     >
       {activeStep !== steps.length && (
-        <Box sx={{ background: "navy", padding: 2, height: "100vh" }}>
+        <Box
+          sx={{
+            background: "navy",
+            padding: 2,
+            height: "100vh",
+            position: "fixed",
+            width: "60px",
+          }}
+        >
           <TemplateStepper
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -232,7 +265,7 @@ function TemplatePreview(props) {
         </Box>
       )}
 
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", marginLeft: "60px" }}>
         {activeStep !== steps.length && (
           <Box
             sx={{
@@ -556,8 +589,17 @@ function TemplatePreview(props) {
                     <>
                       {selectedTemplate.education?.value?.map((edu, index) => (
                         <Box key={index} mt={2}>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Institution
+                          </Typography>
                           <TextField
-                            label="Institution"
+                            // label="Institution"
                             fullWidth
                             margin="normal"
                             value={edu.institution}
@@ -570,9 +612,22 @@ function TemplatePreview(props) {
                               )
                             }
                             size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
                           />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Degree
+                          </Typography>
                           <TextField
-                            label="Degree"
+                            // label="Degree"
                             fullWidth
                             margin="normal"
                             value={edu.degree}
@@ -585,9 +640,22 @@ function TemplatePreview(props) {
                               )
                             }
                             size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
                           />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Year
+                          </Typography>
                           <TextField
-                            label="Year"
+                            // label="Year"
                             fullWidth
                             margin="normal"
                             value={edu.year}
@@ -600,6 +668,10 @@ function TemplatePreview(props) {
                               )
                             }
                             size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
                           />
                           <Button
                             color="error"
@@ -635,8 +707,17 @@ function TemplatePreview(props) {
                       {selectedTemplate.certificate?.value?.map(
                         (edu, index) => (
                           <Box key={index} mt={2}>
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...labelStyle,
+                              }}
+                            >
+                              Title
+                            </Typography>
                             <TextField
-                              label="Title"
+                              // label="Title"
                               fullWidth
                               margin="normal"
                               value={edu.name}
@@ -649,9 +730,22 @@ function TemplatePreview(props) {
                                 )
                               }
                               size="small"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...CustomTextBoxStyle,
+                              }}
                             />
+                            {/* <Typography
+                              variant="subtitle2"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...labelStyle,
+                              }}
+                            >
+                              Link
+                            </Typography>
                             <TextField
-                              label="Link"
+                              // label="Link"
                               fullWidth
                               margin="normal"
                               value={edu.link}
@@ -664,6 +758,38 @@ function TemplatePreview(props) {
                                 )
                               }
                               size="small"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...CustomTextBoxStyle,
+                              }}
+                            /> */}
+                            <Typography
+                              variant="subtitle2"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...labelStyle,
+                              }}
+                            >
+                              Year
+                            </Typography>
+                            <TextField
+                              // label="Link"
+                              fullWidth
+                              margin="normal"
+                              value={edu.year}
+                              onChange={(e) =>
+                                handleNestedChange(
+                                  "certificate",
+                                  index,
+                                  "year",
+                                  e.target.value
+                                )
+                              }
+                              size="small"
+                              sx={{
+                                // marginLeft: "10px",
+                                ...CustomTextBoxStyle,
+                              }}
                             />
 
                             <Button
@@ -686,6 +812,173 @@ function TemplatePreview(props) {
                           handleAddItem("certificate", {
                             title: "",
                             link: "",
+                            year: "",
+                          })
+                        }
+                      >
+                        Add Certificate
+                      </Button>
+                    </>
+                  )}
+                  {/* Projects */}
+                  {activeStep === 6 && (
+                    <>
+                      {selectedTemplate.projects?.value?.map((edu, index) => (
+                        <Box key={index} mt={2}>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Name
+                          </Typography>
+                          <TextField
+                            // label="Title"
+                            fullWidth
+                            margin="normal"
+                            value={edu.name}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "projects",
+                                index,
+                                "name",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Role
+                          </Typography>
+                          <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.role}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "projects",
+                                index,
+                                "role",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Duration
+                          </Typography>
+                          <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.year}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "projects",
+                                index,
+                                "duration",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Responsibilities
+                          </Typography>
+                          {/* <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.description}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "projects",
+                                index,
+                                "description",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          /> */}
+                          <ReactQuill
+                            theme="snow"
+                            // ref={editorRef}
+                            modules={{
+                              toolbar: [
+                                ["bold", "italic", "underline"], // Text styling
+                                [{ list: "ordered" }, { list: "bullet" }], // List options
+                              ],
+                            }}
+                            style={{ height: "100px" }}
+                            value={edu.description || ""}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "projects",
+                                index,
+                                "description",
+                                e
+                              )
+                            }
+                          />
+
+                          <Button
+                            color="error"
+                            onClick={() => handleDeleteItem("projects", index)}
+                            sx={{ mt: 1 }}
+                          >
+                            Delete Certificate
+                          </Button>
+                          <Divider sx={{ my: 2 }} />
+                        </Box>
+                      ))}
+                      <Button
+                        variant="outlined"
+                        startIcon={<Add />}
+                        onClick={() =>
+                          handleAddItem("projects", {
+                            name: "",
+                            role: "",
+                            description: "",
+                            year: "",
+                            location: "",
+                            duration: "",
                           })
                         }
                       >
@@ -734,10 +1027,39 @@ function TemplatePreview(props) {
                 <Button
                   onClick={() => {
                     console.log("save", selectedTemplate);
+                    const element = document.getElementById("resume");
+                    console.log(element);
+                    const options = {
+                      margin: 0.5,
+                      filename: "table.pdf",
+                      image: { type: "jpeg", quality: 0.98 },
+                      html2canvas: { scale: 2 },
+                      jsPDF: {
+                        unit: "in",
+                        format: "letter",
+                        orientation: "portrait",
+                      },
+                    };
+
+                    html2pdf()
+                      .set(options)
+                      .from(element)
+                      .output("blob") // Ensure the output is a Blob
+                      .then((pdfBlob) => {
+                        console.log(pdfBlob);
+
+                        // Create a URL for the Blob and open it in a new tab
+                        const pdfUrl = URL.createObjectURL(pdfBlob);
+                        window.open(pdfUrl, "_blank");
+                      })
+                      .catch((error) =>
+                        console.error("PDF generation failed:", error)
+                      );
                   }}
                 >
                   Save
                 </Button>
+                {/* <Button onClick={generatePdf}>jspdf</Button> */}
               </Box>
             </div>
           )}
