@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Box, Typography, Grid, Paper, Divider } from "@mui/material";
-import 'react-quill/dist/quill.snow.css';
-import ReactQuill, { Quill,editor } from 'react-quill';
+import "react-quill/dist/quill.snow.css";
+import ReactQuill, { Quill, editor } from "react-quill";
 
 export default function Template1(props) {
   useEffect(() => {
@@ -61,14 +61,12 @@ export default function Template1(props) {
             {/* Summary Section */}
             <Box>
               <Typography
-                variant="h6"
+                variant="div"
                 sx={{
                   color: "#00a8e8",
-                  fontSize:
-                    // isPreview
-                    //   ? "10pt"
-                    //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                  fontSize: isPreview
+                    ? "10pt"
+                    : `${selectedTemplate.styles.headingSize}pt`, // Conditional font size
                 }}
               >
                 SUMMARY
@@ -76,29 +74,25 @@ export default function Template1(props) {
               <Typography
                 variant="div"
                 sx={{
-                  fontSize:
-                    //  isPreview
-                    //   ? "8pt"
-                    //   :
-                    selectedTemplate.styles.textSize + "pt",
+                  fontSize: isPreview
+                    ? "8pt"
+                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
                 }}
                 dangerouslySetInnerHTML={{
                   __html: selectedTemplate.summary.value,
                 }}
-              ></Typography>
+              />
             </Box>
 
             {/* Experience Section */}
             <Box>
               <Typography
-                variant="h6"
+                variant="div"
                 sx={{
                   color: "#00a8e8",
-                  fontSize:
-                    //  isPreview
-                    //   ? "10pt"
-                    //   :
-                    selectedTemplate.styles.headingSize + "pt",
+                  fontSize: isPreview
+                    ? "10pt"
+                    : `${selectedTemplate.styles.headingSize}pt`, // Conditional font size
                 }}
                 marginTop={"10px"}
               >
@@ -108,11 +102,9 @@ export default function Template1(props) {
                 variant="body1"
                 sx={{
                   fontWeight: "bold",
-                  fontSize:
-                    //  isPreview
-                    //   ? "8pt"
-                    //   :
-                    selectedTemplate.styles.textSize,
+                  fontSize: isPreview
+                    ? "8pt"
+                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
                 }}
               >
                 SOFTWARE ENGINEER
@@ -121,11 +113,9 @@ export default function Template1(props) {
                 variant="body2"
                 sx={{
                   color: "gray",
-                  fontSize:
-                    // isPreview
-                    //   ? "8pt"
-                    //   :
-                    selectedTemplate.styles.textSize,
+                  fontSize: isPreview
+                    ? "8pt"
+                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
                 }}
               >
                 DACES INDIA PRIVATE LIMITED, CHENNAI • September 2022 - Current
@@ -134,11 +124,9 @@ export default function Template1(props) {
                 style={{
                   marginTop: "5px",
                   paddingLeft: "10px",
-                  fontSize:
-                    //  isPreview
-                    //   ? "8pt"
-                    //   :
-                    selectedTemplate.styles.textSize,
+                  fontSize: isPreview
+                    ? "8pt"
+                    : `${selectedTemplate.styles.textSize}pt`, // Conditional font size
                 }}
               >
                 <li>
@@ -325,7 +313,7 @@ export default function Template1(props) {
                         selectedTemplate.styles.textSize,
                     }}
                   >
-                    {edu.institute}({edu.year})
+                    {edu.institution}({edu.year})
                   </Typography>
                 </Box>
               ))}

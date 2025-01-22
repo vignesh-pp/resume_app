@@ -167,7 +167,7 @@ export default function Navbar() {
       <ThemeProvider theme={darkTheme}>
         <AppBar position="static" className="p-1">
           <Toolbar>
-            <IconButton
+            {/* <IconButton
               size="large"
               edge="start"
               color="inherit"
@@ -175,7 +175,7 @@ export default function Navbar() {
               sx={{ mr: 2 }}
             >
               <MenuIcon />
-            </IconButton>
+            </IconButton> */}
             <Typography
               variant="h6"
               noWrap
@@ -202,7 +202,7 @@ export default function Navbar() {
               Hi Vignesh!
             </Typography>
             <Box sx={{ flexGrow: 1 }} />
-            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            {/* <Box sx={{ display: { xs: "none", md: "flex" } }}>
               <IconButton
                 size="large"
                 aria-label="show 4 new mails"
@@ -244,7 +244,7 @@ export default function Navbar() {
               >
                 <MoreIcon />
               </IconButton>
-            </Box>
+            </Box> */}
           </Toolbar>
         </AppBar>
         {renderMobileMenu}

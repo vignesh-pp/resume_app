@@ -13,23 +13,83 @@ import SelectedTemplate from "./SelectedTemplate";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import styles
 import TemplateStyles from "./TemplateStyles";
+import CreatableSelect from "react-select/creatable";
+import { Chip } from "@mui/material";
 
 function TemplatePreview(props) {
   const { selectedTemplate, setSelectedTemplate, setActiveTab } = props;
   const [activeStep, setActiveStep] = useState(1);
   const steps = selectedTemplate.steps;
-  const [content, setContent] = useState('');
+  const [content, setContent] = useState("");
+
+  // Options for the dropdown
+  const [skillOptions, setKillOptions] = useState([
+    { value: "power bi", label: "Power BI" },
+    { value: "spotfire", label: "Spotfire" },
+    { value: "snowflake", label: "Snowflake" },
+  ]);
+
+  // Convert `skills.value` array to the format react-select requires
+  const selectedSkillOptions =
+    typeof selectedTemplate?.skills?.value === "object" &&
+    selectedTemplate?.skills?.value?.map((skill) => ({
+      value: skill.toLowerCase(),
+      label: skill,
+    }));
+
+  // Handle changes in selection
+  const handleSkillChange = (newSelectedOptions) => {
+    const newSkills = newSelectedOptions
+      ? newSelectedOptions.map((opt) => opt.label)
+      : [];
+    setSelectedTemplate((prev) => ({
+      ...prev,
+      skills: {
+        ...prev.skills,
+        value: newSkills, // Update the skills.value array with new selections
+      },
+    }));
+  };
+
+  // Handle adding a new option dynamically
+  const handleCreate = (inputValue) => {
+    const newOption = { value: inputValue.toLowerCase(), label: inputValue };
+    setKillOptions((prevOptions) => [...prevOptions, newOption]); // Add new option to the list
+    setSelectedTemplate((prev) => ({
+      ...prev,
+      skills: {
+        ...prev.skills,
+        value: [...prev.skills.value, newOption.label], // Add the new skill
+      },
+    }));
+  };
+
+  // Handle removing a chip
+  const handleDeleteChip = (chipToDelete) => {
+    setSelectedTemplate((prev) => ({
+      ...prev,
+      skills: {
+        ...prev.skills,
+        value: prev.skills.value.filter((skill) => skill !== chipToDelete),
+      },
+    }));
+  };
 
   const formats = [
     "header", // Headers (h1, h2, etc.)
-    "bold", "italic", "underline", "strike", // Text formatting
-    "list", "bullet", // Lists
+    "bold",
+    "italic",
+    "underline",
+    "strike", // Text formatting
+    "list",
+    "bullet", // Lists
     "align", // Alignment
     "link", // Links
     "image", // Images
-    "blockquote", "code-block",
+    "blockquote",
+    "code-block",
     "formula",
-    "table"
+    "table",
   ];
 
   const modules = {
@@ -41,7 +101,8 @@ function TemplatePreview(props) {
       ["link", "image"], // Links and images
       ["blockquote", "code-block"], // Block-level formatting
       ["clean"], // Remove formatting
-      ['formula'],['table']
+      ["formula"],
+      ["table"],
     ],
   };
 
@@ -150,7 +211,7 @@ function TemplatePreview(props) {
   const labelStyle = {
     color: "#1e88e5", // Custom color for the label
     marginBottom: "4px", // Space between label and input
-    fontWeight: "bold",
+    // fontWeight: "bold",
   };
 
   return (
@@ -161,7 +222,7 @@ function TemplatePreview(props) {
       }}
     >
       {activeStep !== steps.length && (
-        <Box sx={{ background: "navy", padding: 2 }}>
+        <Box sx={{ background: "navy", padding: 2, height: "100vh" }}>
           <TemplateStepper
             activeStep={activeStep}
             setActiveStep={setActiveStep}
@@ -187,14 +248,7 @@ function TemplatePreview(props) {
                 steps[activeStep].label &&
                 steps[activeStep].label}
             </Typography>
-            <ReactQuill
-              theme="snow"
-              value={content}
-              onChange={handleChanges}
-              modules={modules}
-      formats={formats}
-              placeholder="Write something..."
-            />
+
             {/* Buttons */}
             <Box>
               <Button
@@ -275,7 +329,7 @@ function TemplatePreview(props) {
                           <Typography
                             variant="subtitle2"
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...labelStyle,
                             }}
                           >
@@ -287,7 +341,7 @@ function TemplatePreview(props) {
                             margin="normal"
                             value={selectedTemplate.personaldetails.lastname}
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...CustomTextBoxStyle,
                             }}
                             onChange={(e) =>
@@ -329,7 +383,13 @@ function TemplatePreview(props) {
                           sx={CustomTextBoxStyle}
                         />
                       </Box>
-                      <Box sx={{ display: "flex" }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                        }}
+                      >
                         <Box>
                           <Typography variant="subtitle2" sx={labelStyle}>
                             City
@@ -350,7 +410,7 @@ function TemplatePreview(props) {
                           <Typography
                             variant="subtitle2"
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...labelStyle,
                             }}
                           >
@@ -366,7 +426,7 @@ function TemplatePreview(props) {
                             }
                             size="small"
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...CustomTextBoxStyle,
                             }}
                           />
@@ -375,7 +435,7 @@ function TemplatePreview(props) {
                           <Typography
                             variant="subtitle2"
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...labelStyle,
                             }}
                           >
@@ -391,7 +451,7 @@ function TemplatePreview(props) {
                             }
                             size="small"
                             sx={{
-                              marginLeft: "10px",
+                              // marginLeft: "10px",
                               ...CustomTextBoxStyle,
                             }}
                           />
@@ -402,41 +462,93 @@ function TemplatePreview(props) {
 
                   {activeStep === 2 && (
                     <Box sx={{ marginTop: "10px" }}>
-                      <ReactQuill
-                        theme="snow"
-                        ref={editorRef}
-                        modules={{
-                          toolbar: [
-                            ["bold", "italic", "underline"], // Text styling
-                            [{ list: "ordered" }, { list: "bullet" }], // List options
-                          ],
-                        }}
-                        value={selectedTemplate.summary?.value || ""}
-                        onChange={(e) => handleChange("summary", e)}
-                      />
-                      {/* <TextField
-                    fullWidth
-                    type="textarea"
-                    margin="normal"
-                    value={selectedTemplate.summary?.value || ""}
-                    onChange={(e) => handleChange("summary", e)}
-                    size="small"
-                    sx={{
-                      marginLeft: "10px",
-                      ...CustomTextBoxStyle,
-                    }}
-                  /> */}
+                      <div className="d-flex">
+                        <ReactQuill
+                          theme="snow"
+                          ref={editorRef}
+                          modules={{
+                            toolbar: [
+                              ["bold", "italic", "underline"], // Text styling
+                              [{ list: "ordered" }, { list: "bullet" }], // List options
+                            ],
+                          }}
+                          style={{ height: "400px" }}
+                          value={selectedTemplate.summary?.value || ""}
+                          onChange={(e) => handleChange("summary", e)}
+                        />
+                        {/* <TextField
+                          fullWidth
+                          type="textarea"
+                          margin="normal"
+                          value={selectedTemplate.summary?.value || ""}
+                          onChange={(e) => handleChange("summary", e)}
+                          size="small"
+                          sx={{
+                            marginLeft: "10px",
+                            ...CustomTextBoxStyle,
+                            height: "400px",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+                          }}
+                        /> */}
+                      </div>
                     </Box>
                   )}
                   {/* Skills */}
                   {activeStep === 3 && (
                     <>
-                      <ReactQuill
-                        theme="snow"
-                        // ref={editorRef}
-                        value={selectedTemplate.skills?.value || ""}
-                        onChange={(e) => handleChange("skills", e)}
-                      />
+                      {typeof selectedTemplate.skills?.value === "object" ? (
+                        // <textarea
+                        //   value={selectedTemplate.skills.value}
+                        //   onChange={(e) => handleChange("skills", e)}
+                        // />
+                        <>
+                          <CreatableSelect
+                            isMulti
+                            isClearable
+                            options={skillOptions} // Options for the dropdown
+                            value={selectedSkillOptions} // Convert selected values to react-select format
+                            onChange={handleSkillChange} // Handle selecting options
+                            onCreateOption={handleCreate} // Handle creating a new option
+                            placeholder="Type to search or add..."
+                          />
+                          {/* Chips for selected skills */}
+                          <div
+                            style={{
+                              marginTop: "20px",
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: "10px",
+                            }}
+                          >
+                            {selectedTemplate.skills.value.map(
+                              (skill, index) => (
+                                <Chip
+                                  key={index}
+                                  label={skill}
+                                  onDelete={() => handleDeleteChip(skill)}
+                                  style={{
+                                    backgroundColor: "#e0f7fa",
+                                    color: "#006064",
+                                  }}
+                                />
+                              )
+                            )}
+                          </div>
+                        </>
+                      ) : (
+                        <ReactQuill
+                          theme="snow"
+                          // ref={editorRef}
+                          modules={{
+                            toolbar: [
+                              ["bold", "italic", "underline"], // Text styling
+                              [{ list: "ordered" }, { list: "bullet" }], // List options
+                            ],
+                          }}
+                          style={{ height: "400px" }}
+                          value={selectedTemplate.skills?.value || ""}
+                          onChange={(e) => handleChange("skills", e)}
+                        />
+                      )}
                     </>
                   )}
                   {/* Education */}
@@ -445,15 +557,15 @@ function TemplatePreview(props) {
                       {selectedTemplate.education?.value?.map((edu, index) => (
                         <Box key={index} mt={2}>
                           <TextField
-                            label="Institute"
+                            label="Institution"
                             fullWidth
                             margin="normal"
-                            value={edu.institute}
+                            value={edu.institution}
                             onChange={(e) =>
                               handleNestedChange(
                                 "education",
                                 index,
-                                "institute",
+                                "institution",
                                 e.target.value
                               )
                             }
@@ -504,9 +616,12 @@ function TemplatePreview(props) {
                         startIcon={<Add />}
                         onClick={() =>
                           handleAddItem("education", {
-                            institute: "",
+                            institution: "",
                             degree: "",
                             year: "",
+                            duration: "",
+                            location: "",
+                            marks: "",
                           })
                         }
                       >
@@ -583,7 +698,7 @@ function TemplatePreview(props) {
               <Box className="col-4">
                 <SelectedTemplate
                   selectedTemplate={selectedTemplate}
-                  // isPreview={true}
+                  isPreview={true}
                 />
               </Box>
             </>
@@ -594,16 +709,36 @@ function TemplatePreview(props) {
           {activeStep === steps.length && (
             <div className="container d-flex justify-content-between">
               {" "}
-              <Box className="col-3 text-center">
+              {/* <Box className="col-3 text-center">
                 <TemplateStyles
                   selectedTemplate={selectedTemplate}
                   setSelectedTemplate={setSelectedTemplate}
                 />
+              </Box> */}
+              <Box className="col-7">
+                <SelectedTemplate
+                  selectedTemplate={selectedTemplate}
+                  isPreview={false}
+                />
               </Box>
-              <Box className="col-5">
-                <SelectedTemplate selectedTemplate={selectedTemplate} />
+              <Box className="col-3 text-center">
+                {steps.map((step, index) => (
+                  <Button
+                    key={index}
+                    style={{ display: index === 0 ? "none" : "block" }}
+                    onClick={() => setActiveStep(index)}
+                  >
+                    {step.label}{" "}
+                  </Button>
+                ))}
+                <Button
+                  onClick={() => {
+                    console.log("save", selectedTemplate);
+                  }}
+                >
+                  Save
+                </Button>
               </Box>
-              <Box className="col-3 text-center">dejf</Box>
             </div>
           )}
         </Box>

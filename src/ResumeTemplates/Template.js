@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import { Button, duration } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import TemplatePreview from "./TemplatePreview";
@@ -45,7 +45,8 @@ export default function Template() {
         value: [
           {
             title: "Retail Sales Associate",
-            company: "ZARA - New Delhi, India",
+            company: "ZARA",
+            location: "New Delhi, India",
             duration: "02/2017 - Current",
             responsibilities: [
               "Increased monthly sales 10% by upselling products.",
@@ -68,11 +69,13 @@ export default function Template() {
         value: [
           {
             name: "Advanced Algorithms and Data Structures",
+            year: "2021",
             link: "",
           },
           {
             name: "React Certification",
             link: "",
+            year: "2024",
           },
         ],
       },
@@ -115,6 +118,134 @@ export default function Template() {
       //   { label: "Education", icon: "school" },
       //   { label: "Certificate", icon: "school" },
       // ],
+    },
+    {
+      personaldetails: {
+        firstname: "VIGNESH",
+        lastname: "P",
+        email: "pvignesh358@gmail.com",
+        phone: "9566805138",
+        city: "TENKASI",
+        country: "India",
+        pincode: "627818",
+        photo: null,
+        role: "Software Engineer",
+      },
+      summary: {
+        label: "summary",
+        value: `Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.`,
+      },
+      skills: {
+        label: "skills",
+        value: [
+          "Power BI",
+          "Spotfire",
+          "Snowflake",
+          "SSRS",
+          "Excel",
+          "Oracle",
+          "DSE Graph",
+          "MySQL",
+          "CQL",
+          "Linux",
+          "Playwright",
+          "Golang",
+          "Python",
+          "Django",
+          "SQL",
+          "PLSQL",
+          "MLflow",
+          "git",
+        ],
+      },
+      experience: {
+        label: "experience",
+        value: [
+          {
+            position: "Retail Sales Associate",
+            company: "ZARA",
+            location: "New Delhi, India",
+            duration: "02/2017 - Current",
+            responsibilities: [
+              "Increased monthly sales 10% by upselling products.",
+            ],
+          },
+        ],
+      },
+      education: {
+        label: "education",
+        value: [
+          {
+            institution: "Oxford Software Institute, New Delhi",
+            degree: "Diploma in Financial Accounting",
+            year: "2016",
+            duration: "2 years",
+            location: "New Delhi",
+            marks: "80%",
+          },
+        ],
+      },
+      certificate: {
+        label: "certificate",
+        value: [
+          {
+            name: "Advanced Algorithms and Data Structures",
+            year: "2021",
+            link: "",
+            organization: "",
+          },
+          {
+            name: "React Certification",
+            link: "",
+            year: "2024",
+            organization: "",
+          },
+        ],
+      },
+      projects: {
+        label: "projects",
+        value: [
+          {
+            name: "Demo",
+            role: "developer",
+            description: "nds fksf sdfnksd nfsdlfsdf",
+            year: "2101",
+            location: "India",
+            duration: "2 years",
+          },
+        ],
+      },
+      template_id: 1,
+      template_name: "resume1",
+      template_image: null,
+      styles: {
+        bgcolor: "#00a8ee",
+        color: "red",
+        textSize: 10,
+        fontFamily: "Arial",
+        headingSize: 12,
+        sectionSpacing: 2,
+        lineSpacing: 1,
+        topbottomMargin: 1,
+        sideMargin: 1,
+        paragraphIndent: 1,
+      },
+      sections: {
+        has_personaldetails: true,
+        has_experience: true,
+        has_education: true,
+        has_certificates: true,
+        has_skills: true,
+        has_summary: true,
+      },
+      steps: [
+        { label: "Home", icon: <HomeIcon /> },
+        { label: "Personal Details", icon: <PersonIcon /> },
+        { label: "Summary", icon: <PersonIcon /> },
+        { label: "Skills", icon: <BuildIcon /> },
+        { label: "Education", icon: <SchoolIcon /> },
+        { label: "Certificate", icon: <SchoolIcon /> },
+      ],
     },
   ]);
   const [showAll, setShowAll] = useState(false);
