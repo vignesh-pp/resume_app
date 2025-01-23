@@ -21,10 +21,19 @@ import Template4Img from "../Images/Template4.png";
 export default function Template() {
   useEffect(() => {
     axios
-      .post("http://localhost:3000/login/", {
-        name: "vignesh.perumal@data-aces.com",
-        password: 12345678,
-      })
+      .post(
+        "http://localhost:8000/api/login/",
+        {
+          username: "Rohith P",
+          password: "0987",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Custom headers can go here if needed
+          },
+        }
+      )
       .then((res) => {
         console.log("res", res.data);
       })
@@ -195,9 +204,16 @@ export default function Template() {
             company: "ZARA",
             location: "New Delhi, India",
             duration: "02/2017 - Current",
-            responsibilities: [
+            responsibilities:
               "Increased monthly sales 10% by upselling products.",
-            ],
+          },
+          {
+            position: "Retail Sales Associate",
+            company: "ZARA",
+            location: "New Delhi, India",
+            duration: "02/2017 - Current",
+            responsibilities:
+              "Increased monthly sales 10% by upselling products.",
           },
         ],
         has_position: true,
@@ -293,6 +309,7 @@ export default function Template() {
         { label: "Skills", icon: <BuildIcon /> },
         { label: "Education", icon: <SchoolIcon /> },
         { label: "Certificate", icon: <SchoolIcon /> },
+        { label: "Experience", icon: <SchoolIcon /> },
         { label: "Projects", icon: <SchoolIcon /> },
       ],
     },
@@ -493,9 +510,8 @@ export default function Template() {
             company: "ZARA",
             location: "New Delhi, India",
             duration: "02/2017 - Current",
-            responsibilities: [
+            responsibilities:
               "Increased monthly sales 10% by upselling products.",
-            ],
           },
         ],
         has_position: true,
@@ -642,9 +658,8 @@ export default function Template() {
             company: "ZARA",
             location: "New Delhi, India",
             duration: "02/2017 - Current",
-            responsibilities: [
+            responsibilities:
               "Increased monthly sales 10% by upselling products.",
-            ],
           },
         ],
         has_position: true,
@@ -762,7 +777,12 @@ export default function Template() {
     setSelectedTemplate(template);
   };
   return (
-    <div>
+    <div
+      style={{
+        background: "linear-gradient(180deg, #fff 0%, #ceeeff 100%)",
+        height: "100vh",
+      }}
+    >
       {activeTab === 0 && (
         <>
           <Navbar />

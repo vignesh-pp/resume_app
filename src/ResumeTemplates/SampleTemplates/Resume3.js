@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Resume3(props) {
+export default function Resume3({ selectedTemplate, isPreview = true }) {
   return (
     <div
       style={{ padding: "5px", background: "white" }}

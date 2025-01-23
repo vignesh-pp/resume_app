@@ -1,66 +1,41 @@
 import React from "react";
 
-export default function Resume4() {
+export default function Resume4({ selectedTemplate, isPreview = true }) {
   return (
     <div
-      style={{ padding: "5px", background: "white" }}
       id="resume"
-      className="resume4"
+      className="resume2"
+      style={{ padding: "5px", background: "white" }}
     >
       <style>
         {`.right-align {
             text-align: right;
         }
-
         .starting {
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-
         }
-
-        .skills {
+        .starting-skills {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            // margin-left: -60px;
+        }
+        .skills{
             display: grid;
-            gap: 30px;
+            gap: 20px;
             grid-template-columns: repeat(6, 1fr);
         }
-
         
-        .skill:nth-child(6n) {
+        .skill:nth-child(1n) {
             border-right: none;
         }
-
-        h5 {
-            margin-left: 1px;
+        h4{
+            margin:0px 0px;
         }
-        .starting-left {
-            width: 200px;
-            
-        }
-        .starting-right{
-            display: flex;
-            flex-direction: column;
-        }
-        .starting-right-p{
-            display: flex;
-            flex-direction: column;
-        }
-        // p.pr{
-        //     line-height: 0.1;
-        //     margin-bottom: 3px;
-            
-        // }
-        .starting-right h5{
-            margin: 0;
-        }
-        .starting-left p{
-            margin: 0;
-        }
-        .skill-head {
-            width: 200px;
-        }
-        .skills-left, .skills-right{
-            width: 300px;
+        .last{
+            margin-top: -15px;
         }
         page[size="A4"] {
             width: 21cm;
@@ -76,177 +51,141 @@ export default function Resume4() {
             box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
         }`}
       </style>
+
       <div>
         <page size="A4">
-          <div className="starting">
-            <div className="starting-left">
-              <h1 style={{ color: "#333333" }}>
-                MARESLINA
-                <br />
-                ZALIYANTI
-              </h1>
-              <h3 style={{ color: "#858585" }}>Accountant</h3>
-            </div>
-            <div className="starting-right-p">
-              <p className="pr" style={{ color: "#858585" }}>
-                +123-456-7890
-              </p>
-              <p className="pr" style={{ color: "#858585" }}>
-                hello@reallygreatsite.com
-              </p>
-              <p className="pr" style={{ color: "#858585" }}>
-                123 Anywhere St. Any City
-              </p>
-              <p className="pr" style={{ color: "#858585" }}>
-                www.reallygreatsite.com
-              </p>
-            </div>
-          </div>
+          <div className="container">
+            <h1 style={{ color: "#1e5ebe" }}>ESTELLE DARCY</h1>
+            <h2 style={{ marginTop: 5 }}>UX DESIGNER</h2>
+            <p style={{ color: "#3e3e3e", marginTop: 5 }}>
+              123 Anywhere St, Any City | hello@reallygreatsite.com |
+              www.reallygreatsite.com
+            </p>
+            <hr style={{ color: "#1e5ebe" }} />
+            <h4 style={{ color: "#1e5ebe" }}>SUMMARY</h4>
+            <hr style={{ color: "#1e5ebe" }} />
+            <p>
+              UX Designer with a focus on delivering impactful results, eager to
+              tackle dynamic challenges and apply creativity to craft intuitive
+              user experiences. Demonstrated proficiency in project management,
+              user-centric problem-solving, and seamless collaboration across
+              teams. Skilled in leveraging state-of-the-art tools and
+              methodologies to streamline processes and elevate user
+              satisfaction.
+            </p>
 
-          <h2 style={{ backgroundColor: "#efefef", color: "#333333" }}>
-            PROFESSIONAL SUMMARY
-          </h2>
-
-          <p style={{ color: "#858585" }}>
-            Results-oriented Engineering Executive with a proven track record of
-            optimizing project outcomes. Skilled in strategic project management
-            and team leadership. Seeking a challenging executive role to
-            leverage technical expertise and drive engineering excellence.
-          </p>
-
-          <h2 style={{ backgroundColor: "#efefef", color: "#333333" }}>
-            WORK EXPERIENCE
-          </h2>
-
-          <div className="starting">
-            <div className="starting-left">
-              <p style={{ color: "#858585" }}>
-                Ingoude Company
-                <br />
-                2019 - present
-              </p>
+            <hr style={{ color: "#1e5ebe" }} />
+            <h4 style={{ color: "#1e5ebe" }}>TECHNICAL SKILLS</h4>
+            <hr style={{ color: "#1e5ebe" }} />
+            <div className="starting-skills">
+              <div className="starting-left">
+                <p>Prototyping Tools</p>
+                <p>User Research</p>
+                <p>Information Architecture</p>
+              </div>
+              <div className="starting-center">
+                <p className="center-align">Interaction Design</p>
+                <p className="center-align">Visual Design</p>
+                <p className="center-align">Usability Heuristics</p>
+              </div>
+              <div className="starting-right">
+                <p className="right-align">Accessibility</p>
+                <p className="right-align">Responsive Design</p>
+                <p className="right-align">User Testing Tools</p>
+              </div>
             </div>
-            <div className="starting-right">
-              <h5 style={{ color: "#333333" }}>Senior Accountant</h5>
-              <p style={{ color: "#858585" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
+            <hr style={{ color: "#1e5ebe" }} />
+            <h4 style={{ color: "#1e5ebe" }}>PROFESSIONAL EXPERIENCE</h4>
+            <hr style={{ color: "#1e5ebe" }} />
+            <div className="starting">
+              <div className="starting-left">
+                <b>Instant Chartz App, Morcelle Program</b>
+              </div>
+              <div className="starting-right">
+                <b className="right-align">Jan 2023-Present</b>
+              </div>
             </div>
-          </div>
-
-          <div className="starting">
-            <div className="starting-left">
-              <p style={{ color: "#858585" }}>
-                Ingoude Company
-                <br />
-                2019 - present
-              </p>
+            <p style={{ marginTop: 5 }}>
+              • Led development of an advanced automation system, achieving a
+              15% increase in operational efficiency.
+            </p>
+            <p>
+              • Streamlined manufacturing processes, reducing production costs
+              by 10%.
+            </p>
+            <p>
+              • Implemented preventive maintenance strategies, resulting in a
+              20% decrease in equipment downtime.
+            </p>
+            <div className="starting">
+              <div className="starting-left">
+                <b>System UX Engineering, XarrowAI Industries</b>
+              </div>
+              <div className="starting-right">
+                <b className="right-align">Feb 2021-Dec 2022</b>
+              </div>
             </div>
-            <div className="starting-right">
-              <h5 style={{ color: "#333333" }}>Accountant</h5>
-              <p style={{ color: "#858585" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
+            <p style={{ marginTop: 5 }}>
+              • Designed and optimised a robotic control system, realizing a 12%
+              performance improvement.
+            </p>
+            <p>
+              • Coordinated testing and validation, ensuring compliance with
+              industry standards.
+            </p>
+            <p>
+              • Provided technical expertise, contributing to a 15% reduction in
+              system failures.
+            </p>
+            <br />
+            <hr className="last" style={{ color: "#1e5ebe" }} />
+            <h4 style={{ color: "#1e5ebe" }}>EDUCATION</h4>
+            <hr style={{ color: "#1e5ebe" }} />
+            <div className="starting">
+              <div className="starting-left">
+                <b>UX Industrial Basic and General Application</b>
+              </div>
+              <div className="starting-right">
+                <b className="right-align">Aug 2016-Oct 2019</b>
+              </div>
             </div>
-          </div>
-
-          <div className="starting">
-            <div className="starting-left">
-              <p style={{ color: "#858585" }}>
-                Ingoude Company
-                <br />
-                2019 - present
-              </p>
+            <p style={{ marginTop: 1 }}>University of Engineering UX Cohort</p>
+            <p>• Major in Automotive Technology.</p>
+            <p>
+              • Thesis on "Technological Advancements within the current
+              Mechatronics Industry".
+            </p>
+            <br />
+            <div className="starting">
+              <div className="starting-left">
+                <b style={{ marginTop: -19 }}>
+                  Bachelor of Design in Process Engineering
+                </b>
+              </div>
+              <div className="starting-right">
+                <b className="right-align">May 2014-May 2016</b>
+              </div>
             </div>
-            <div className="starting-right">
-              <h5 style={{ color: "#333333" }}>Junior Accountant</h5>
-              <p style={{ color: "#858585" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
-              </p>
-            </div>
-          </div>
-
-          <h2 style={{ backgroundColor: "#efefef", color: "#333333" }}>
-            EDUCATION
-          </h2>
-
-          <div className="starting">
-            <div className="starting-left">
-              <p style={{ color: "#858585" }}>
-                Rimberio University
-                <br />
-                2010-2014
-              </p>
-            </div>
-            <div className="starting-right">
-              <h5 style={{ color: "#333333" }}>
-                Master of Business Administration Accounting
-              </h5>
-              <p style={{ color: "#858585" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
-              </p>
-            </div>
-          </div>
-
-          <div className="starting">
-            <div className="starting-left">
-              <p style={{ color: "#858585" }}>
-                Borpelle University
-                <br />
-                2008-2011
-              </p>
-            </div>
-            <div className="starting-right">
-              <h5 style={{ color: "#333333" }}>Bachelor of Arts Accounting</h5>
-              <p style={{ color: "#858585" }}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam
-              </p>
-            </div>
-          </div>
-
-          <div className="starting">
-            <h2
-              className="skill-head"
-              style={{
-                backgroundColor: "#efefef",
-                color: "#333333",
-                height: "max-content",
-              }}
-            >
-              SKILL
-            </h2>
-            <div className="skills-left">
-              <h4>Personal</h4>
-              <p style={{ color: "#858585" }}>Management skills</p>
-              <p style={{ color: "#858585" }}>Time management</p>
-              <p style={{ color: "#858585" }}>Negotiation</p>
-              <p style={{ color: "#858585" }}>Critical Thinking</p>
-              <p style={{ color: "#858585" }}>Communication Skills</p>
-              <p style={{ color: "#858585" }}>Leadership</p>
-            </div>
-            <div className="skills-right">
-              <h4>Professional</h4>
-              <p style={{ color: "#858585" }}>Financial Accounting</p>
-              <p style={{ color: "#858585" }}>Managerial Accounting</p>
-              <p style={{ color: "#858585" }}>Financial Reporting</p>
-              <p style={{ color: "#858585" }}>Auditing</p>
-              <p style={{ color: "#858585" }}>Expense Reporting</p>
-              <p style={{ color: "#858585" }}>Accounts Payable</p>
-              <p style={{ color: "#858585" }}>Accounts Receivable</p>
-            </div>
+            <p style={{ marginTop: 5 }}>Engineering University</p>
+            <p style={{ marginTop: 5 }}>
+              • Relevant coursework in Structural Design and Project Management.
+            </p>
+            <br />
+            <hr className="last" style={{ color: "#1e5ebe" }} />
+            <h4 style={{ color: "#1e5ebe" }}>ADDITIONAL INFORMATION</h4>
+            <hr style={{ color: "#1e5ebe" }} />
+            <p style={{ marginTop: 3 }}>
+              • <b>Languages:</b> English, French, Mandarin.
+            </p>
+            <p style={{ marginTop: -14 }}>
+              • <b>Certifications:</b> Professional Design Engineer (PDE)
+              License, Project Management Tech (PMT).
+            </p>
+            <p style={{ marginTop: -14 }}>
+              • <b>Awards/Activities:</b> Most Innovative Employer of the Year
+              (2021), Overall Best Employee Division Two (2024), Onboarding
+              Project Lead (2023)
+            </p>
           </div>
         </page>
       </div>

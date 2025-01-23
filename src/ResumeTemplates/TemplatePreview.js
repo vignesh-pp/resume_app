@@ -189,7 +189,7 @@ function TemplatePreview(props) {
     marginTop: "0px",
     "& .MuiOutlinedInput-root": {
       borderRadius: "10px", // Rounded corners
-      backgroundColor: "#f5f5f5", // Light background
+      backgroundColor: "white", // Light background
       marginTop: "0px",
       "&.Mui-focused": {
         backgroundColor: "#e3f2fd", // Slight highlight when focused
@@ -244,8 +244,11 @@ function TemplatePreview(props) {
       sx={{
         display: "flex",
         width: "100%",
+        background: "linear-gradient(180deg, #fff 0%, #ceeeff 100%)",
       }}
     >
+      {/* Stepper */}
+
       {activeStep !== steps.length && (
         <Box
           sx={{
@@ -265,7 +268,8 @@ function TemplatePreview(props) {
         </Box>
       )}
 
-      <Box sx={{ width: "100%", marginLeft: "60px" }}>
+      <Box sx={{ width: "100%", marginLeft: "60px", height: "100%" }}>
+        {/* preview header */}
         {activeStep !== steps.length && (
           <Box
             sx={{
@@ -273,7 +277,7 @@ function TemplatePreview(props) {
               alignItems: "center",
               justifyContent: "space-between",
               padding: 2,
-              borderBottom: "1px solid gray",
+              borderBottom: "1px solid #eaeff0",
             }}
           >
             <Typography variant="h5" gutterBottom>
@@ -328,7 +332,7 @@ function TemplatePreview(props) {
                 <Box
                   sx={{
                     flex: 1,
-                    background: "#f7f7f7",
+                    // background: "#f7f7f7",
                     padding: "5px 10px",
                     borderRadius: 2,
                   }}
@@ -820,8 +824,187 @@ function TemplatePreview(props) {
                       </Button>
                     </>
                   )}
-                  {/* Projects */}
+
+                  {/* Experience */}
                   {activeStep === 6 && (
+                    <>
+                      {selectedTemplate.experience?.value?.map((edu, index) => (
+                        <Box key={index} mt={2}>
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Position
+                          </Typography>
+                          <TextField
+                            // label="Title"
+                            fullWidth
+                            margin="normal"
+                            value={edu.position}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "experience",
+                                index,
+                                "position",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Company
+                          </Typography>
+                          <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.company}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "experience",
+                                index,
+                                "company",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Location
+                          </Typography>
+                          <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.location}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "experience",
+                                index,
+                                "location",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Duration
+                          </Typography>
+                          <TextField
+                            // label="Link"
+                            fullWidth
+                            margin="normal"
+                            value={edu.duration}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "experience",
+                                index,
+                                "duration",
+                                e.target.value
+                              )
+                            }
+                            size="small"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...CustomTextBoxStyle,
+                            }}
+                          />
+                          <Typography
+                            variant="subtitle2"
+                            sx={{
+                              // marginLeft: "10px",
+                              ...labelStyle,
+                            }}
+                          >
+                            Responsibilities
+                          </Typography>
+
+                          <ReactQuill
+                            theme="snow"
+                            // ref={editorRef}
+                            modules={{
+                              toolbar: [
+                                ["bold", "italic", "underline"], // Text styling
+                                [{ list: "ordered" }, { list: "bullet" }], // List options
+                              ],
+                            }}
+                            style={{ height: "100px" }}
+                            value={edu.responsibilities || ""}
+                            onChange={(e) =>
+                              handleNestedChange(
+                                "experience",
+                                index,
+                                "responsibilities",
+                                e
+                              )
+                            }
+                          />
+
+                          <Button
+                            color="error"
+                            onClick={() =>
+                              handleDeleteItem("experience", index)
+                            }
+                            sx={{ mt: 1 }}
+                          >
+                            Delete Experience
+                          </Button>
+                          <Divider sx={{ my: 2 }} />
+                        </Box>
+                      ))}
+                      <Button
+                        variant="outlined"
+                        startIcon={<Add />}
+                        onClick={() =>
+                          handleAddItem("experience", {
+                            position: "",
+                            company: "",
+                            location: "",
+                            duration: "",
+                            responsibilities: "",
+                          })
+                        }
+                      >
+                        Add Experience
+                      </Button>
+                    </>
+                  )}
+
+                  {/* Projects */}
+                  {activeStep === 7 && (
                     <>
                       {selectedTemplate.projects?.value?.map((edu, index) => (
                         <Box key={index} mt={2}>
@@ -832,7 +1015,7 @@ function TemplatePreview(props) {
                               ...labelStyle,
                             }}
                           >
-                            Name
+                            Project Name
                           </Typography>
                           <TextField
                             // label="Title"
@@ -894,7 +1077,7 @@ function TemplatePreview(props) {
                             // label="Link"
                             fullWidth
                             margin="normal"
-                            value={edu.year}
+                            value={edu.duration}
                             onChange={(e) =>
                               handleNestedChange(
                                 "projects",
@@ -916,27 +1099,8 @@ function TemplatePreview(props) {
                               ...labelStyle,
                             }}
                           >
-                            Responsibilities
+                            Description
                           </Typography>
-                          {/* <TextField
-                            // label="Link"
-                            fullWidth
-                            margin="normal"
-                            value={edu.description}
-                            onChange={(e) =>
-                              handleNestedChange(
-                                "projects",
-                                index,
-                                "description",
-                                e.target.value
-                              )
-                            }
-                            size="small"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...CustomTextBoxStyle,
-                            }}
-                          /> */}
                           <ReactQuill
                             theme="snow"
                             // ref={editorRef}
@@ -963,7 +1127,7 @@ function TemplatePreview(props) {
                             onClick={() => handleDeleteItem("projects", index)}
                             sx={{ mt: 1 }}
                           >
-                            Delete Certificate
+                            Delete Projects
                           </Button>
                           <Divider sx={{ my: 2 }} />
                         </Box>
@@ -976,13 +1140,12 @@ function TemplatePreview(props) {
                             name: "",
                             role: "",
                             description: "",
-                            year: "",
                             location: "",
                             duration: "",
                           })
                         }
                       >
-                        Add Certificate
+                        Add Projects
                       </Button>
                     </>
                   )}

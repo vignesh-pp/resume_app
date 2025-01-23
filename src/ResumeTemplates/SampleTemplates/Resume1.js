@@ -5,11 +5,15 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
   // Dynamic styles and data
   console.log("*********************", selectedTemplate);
 
-  const textSize = isPreview ? "6pt" : `${selectedTemplate.template_styles.textSize}pt`;
-  const headSize = isPreview ? "8pt" : `${selectedTemplate.template_styles.headSize}pt`;
+  const textSize = isPreview
+    ? "6pt"
+    : `${selectedTemplate.template_styles.textSize}pt`;
+  const headSize = isPreview
+    ? "8pt"
+    : `${selectedTemplate.template_styles.headSize}pt`;
 
   return (
-    <div style={{ padding: "5px", background: "white" }} id="resume">
+    <div style={{ padding: "5px" }} id="resume">
       <style>
         {`
         .right-align {
@@ -73,24 +77,29 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
 
         hr {
             border: none;
-            border-top: 2px solid #d4731b;
-            margin: 20px 0;
         }`}
       </style>
-      <div >
+      <div>
         <page size="A4">
           <div className="starting">
             <div className="starting-left">
-              <h1 style={{ color: "#16365f" }}>
+              <h1
+                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+              >
                 {selectedTemplate.personaldetails.firstname +
                   " " +
                   selectedTemplate.personaldetails.lastname}
               </h1>
-              <h4 style={{ color: "#d4731b" }}>
+              <h4
+                style={{ color: "#d4731b", fontSize: isPreview ? "12px" : "" }}
+              >
                 {selectedTemplate?.personaldetails?.role || "Software Engineer"}
               </h4>
             </div>
-            <div className="starting-right">
+            <div
+              className="starting-right"
+              style={{ fontSize: isPreview ? "10px" : "" }}
+            >
               <div className="right-align" style={{ color: "#999999" }}>
                 {selectedTemplate?.personaldetails?.phone}
               </div>
@@ -105,50 +114,133 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               </div>
             </div>
           </div>
-          <hr />
-          <h5 style={{ color: "#16365f" }}>PROFESSIONAL PROFILE</h5>
+          <hr
+            style={{
+              margin: isPreview ? "10px 0" : "20px 0",
+              borderTop: "2px solid #d4731b",
+            }}
+          />
+          <h5 style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}>
+            PROFESSIONAL PROFILE
+          </h5>
           <p
             dangerouslySetInnerHTML={{
               __html: selectedTemplate.summary.value,
             }}
-            style={{ color: "#999999" }}
+            style={{ color: "#999999", fontSize: isPreview ? "10px" : "" }}
           />
-          <hr />
-          <h5 style={{ color: "#16365f" }}>TECH SKILLS</h5>
+          <hr
+            style={{
+              margin: isPreview ? "10px 0" : "20px 0",
+              borderTop: "2px solid lightgray",
+            }}
+          />
+          <h5 style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}>
+            TECH SKILLS
+          </h5>
           <div className="skills">
             {selectedTemplate?.skills?.value?.map((skill, index) => (
-              <p className="skill">{skill}</p>
+              <p
+                className="skill"
+                style={{ fontSize: isPreview ? "10px" : "" }}
+              >
+                {skill}
+              </p>
             ))}
           </div>
-          <hr />
-          <div className="starting">
+          <hr
+            style={{
+              margin: isPreview ? "10px 0" : "20px 0",
+              borderTop: "2px solid lightgray",
+            }}
+          />
+          <div className="starting" style={{ alignItems: "flex-start" }}>
             <div className="starting-left">
-              <h5 style={{ color: "#16365f" }}>EDUCATION</h5>
+              <h5
+                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+              >
+                EDUCATION
+              </h5>
 
               {selectedTemplate.education?.value.map((edu, index) => (
-                <div key={index}>
-                  <div style={{ color: "#d4731b" }}>{edu.degree}</div>
+                <div key={index} style={{ fontSize: isPreview ? "10px" : "" }}>
+                  <div
+                    style={{
+                      color: "#d4731b",
+                      fontSize: isPreview ? "12px" : "",
+                    }}
+                  >
+                    {edu.degree}
+                  </div>
                   <div style={{ color: "#7f7f7f" }}>
                     <i>{edu.institution}</i>
                   </div>
                 </div>
               ))}
-              <h5 style={{ color: "#16365f" }}>WORK EXPERIENCE</h5>
+              <h5
+                style={{
+                  color: "#16365f",
+                  fontSize: isPreview ? "14px" : "",
+                  marginTop: isPreview ? "10px" : "20px",
+                }}
+              >
+                WORK EXPERIENCE
+              </h5>
               {selectedTemplate?.experience?.value.map((job, index) => (
-                <div key={index}>
-                  <div style={{ color: "#16365f" }}>{job.title}</div>
+                <div
+                  key={index}
+                  style={{
+                    fontSize: isPreview ? "10px" : "",
+                    marginTop: index === 0 ? "0px" : "10px",
+                  }}
+                >
+                  <div style={{ color: "black" }}>{job.position}</div>
                   <div style={{ color: "#d4731b" }}>
-                    {job.company} • {job.location} • ({job.duration})
+                    <i>
+                      {job.company} • {job.location} • ({job.duration})
+                    </i>
+                  </div>
+                </div>
+              ))}
+              <h5
+                style={{
+                  color: "#16365f",
+                  fontSize: isPreview ? "14px" : "",
+                  marginTop: isPreview ? "10px" : "20px",
+                }}
+              >
+                Key Projects
+              </h5>
+              {selectedTemplate?.projects?.value.map((pro, index) => (
+                <div
+                  key={index}
+                  style={{
+                    fontSize: isPreview ? "10px" : "",
+                    marginTop: index === 0 ? "0px" : "10px",
+                  }}
+                >
+                  <div>
+                    <i style={{ color: "#d4731b" }}>
+                      {pro.name} • {pro.location} • ({pro.duration})
+                    </i>
+                    <div
+                      dangerouslySetInnerHTML={{
+                        __html: pro.description,
+                      }}
+                    ></div>
                   </div>
                 </div>
               ))}
             </div>
             <div className="starting-right">
-              <h5 className="right-align" style={{ color: "#16365f" }}>
+              <h5
+                className="right-align"
+                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+              >
                 CERTIFICATIONS / TRAINING
               </h5>
               {selectedTemplate?.certificate?.value.map((cert, index) => (
-                <div key={index}>
+                <div key={index} style={{ fontSize: isPreview ? "10px" : "" }}>
                   <div className="right-align" style={{ color: "#678a50" }}>
                     {cert.name}
                   </div>
