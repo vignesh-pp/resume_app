@@ -27,8 +27,8 @@ export default function TemplateStepper(props) {
                 <Tooltip title={value.label} arrow>
                   <Box
                     sx={{
-                      width: 24,
-                      height: 24,
+                      width: 27,
+                      height: 27,
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",

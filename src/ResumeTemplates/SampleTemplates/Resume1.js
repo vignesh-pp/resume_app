@@ -13,7 +13,13 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
     : `${selectedTemplate.template_styles.headSize}pt`;
 
   return (
-    <div style={{ padding: "5px" }} id="resume">
+    <div
+      style={{
+        borderRadius: "5px",
+        border: !isPreview ? "" : "1px solid #eaeff0",
+      }}
+      id="resume"
+    >
       <style>
         {`
         .right-align {
@@ -52,7 +58,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
             background: white;
             display: block;
             margin: 0 auto;
-            margin-bottom: 0.5cm;
+            // margin-bottom: 0.5cm;
             box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
         }
 

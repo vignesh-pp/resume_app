@@ -17,8 +17,17 @@ import Template1Img from "../Images/Template1.jpg";
 import Template2Img from "../Images/Template2.png";
 import Template3Img from "../Images/Template3.png";
 import Template4Img from "../Images/Template4.png";
+import Test from "./Test";
+// import Cookies from "js-cookie";
+
+// const csrfToken = Cookies.get("csrftoken");
+// console.log("====================================");
+// console.log("csrfToken", csrfToken);
+// console.log("====================================");
+// // axios.defaults.withCredentials = true;
 
 export default function Template() {
+  const [te, setTe] = useState(null);
   useEffect(() => {
     axios
       .post(
@@ -35,7 +44,37 @@ export default function Template() {
         }
       )
       .then((res) => {
+        document.cookie = `csrftoken=${res.data.data[1].csrftoken}`;
+        setTe(`csrftoken=${res.data.data[1].csrftoken}`);
+        console.log("====================================");
+        console.log(document.cookie);
+        console.log("====================================");
+        const username = "Rohith P";
+        const password = "0987";
+        const basicAuth = "Basic " + btoa(`${username}:${password}`);
+        console.log("====================================");
         console.log("res", res.data);
+        console.log("====================================");
+
+        setTimeout(() => {
+          const username = "Rohith P";
+          const password = "0987";
+          const basicAuth = "Basic " + btoa(`${username}:${password}`);
+
+          axios
+            .get("http://localhost:8000/api/resume-template/", {
+              headers: {
+                // "X-CSRFToken": csrfToken, // Django expects this header
+                // "Content-Type": "application/json",
+                Authorization: basicAuth,
+              },
+            })
+            .then((res) => {
+              console.log("res", res.data);
+              // setAllTemplates(res.data);
+            })
+            .catch((err) => {});
+        }, 2000);
       })
       .catch((err) => {
         console.log("err", err);
@@ -50,7 +89,18 @@ export default function Template() {
     //   .catch((err) => {
     //     console.log("err", err);
     //   });
-  }, []);
+  }, [1 === 1]);
+  // useEffect(() => {
+  //   axios
+  //     .get("http://localhost:8000/api/user-details/")
+  //     .then((res) => {
+  //       console.log("res", res.data);
+  //       // setAllTemplates(res.data);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // }, []);
   const [allTemplates, setAllTemplates] = useState([
     // {
     //   personaldetails: {
@@ -313,455 +363,482 @@ export default function Template() {
         { label: "Projects", icon: <SchoolIcon /> },
       ],
     },
-    {
-      personaldetails: {
-        firstname: "VIGNESH",
-        lastname: "P",
-        email: "pvignesh358@gmail.com",
-        phone: "9566805138",
-        city: "Tenkasi",
-        country: "India",
-        pincode: "627818",
-        photo: null,
-        role: "Software Engineer",
-      },
-      summary: {
-        label: "summary",
-        value:
-          "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
-      },
-      skills: {
-        label: "skills",
-        value: [
-          "Power BI",
-          "Spotfire",
-          "Snowflake",
-          "SSRS",
-          "Excel",
-          "Oracle",
-          "DSE Graph",
-          "MySQL",
-          "CQL",
-          "Linux",
-          "Playwright",
-          "Golang",
-          "Python",
-          "Django",
-          "SQL",
-          "PLSQL",
-          "MLflow",
-          "git",
-        ],
-      },
-      experience: {
-        label: "experience",
-        value: [
-          {
-            position: "Retail Sales Associate",
-            company: "ZARA",
-            location: "New Delhi, India",
-            duration: "02/2017 - Current",
-            responsibilities: [
-              "Increased monthly sales 10% by upselling products.",
-            ],
-          },
-        ],
-        has_position: true,
-        has_company: true,
-        has_location: true,
-        has_duration: true,
-        has_responsibilities: true,
-      },
-      education: {
-        label: "education",
-        value: [
-          {
-            institution: "Oxford Software Institute, New Delhi",
-            degree: "Diploma in Financial Accounting",
-            year: "2016",
-            duration: "2 years",
-            location: "New Delhi",
-            marks: "80%",
-          },
-        ],
-        has_institution: true,
-        has_degree: true,
-        has_location: true,
-        has_duration: true,
-        has_mark: true,
-      },
-      certificate: {
-        label: "certificate",
-        value: [
-          {
-            name: "Advanced Algorithms and Data Structures",
-            year: "2021",
-            link: "",
-            organization: "",
-          },
-          {
-            name: "React Certification",
-            link: "",
-            year: "2024",
-            organization: "",
-          },
-        ],
-        has_link: true,
-        has_name: true,
-        has_year: true,
-        has_organization: true,
-      },
-      projects: {
-        label: "projects",
-        value: [
-          {
-            name: "Demo",
-            role: "developer",
-            description: "working on demo project",
-            location: "India",
-            duration: "2 years",
-          },
-        ],
-        has_name: true,
-        has_role: true,
-        has_location: true,
-        has_duration: true,
-        has_description: true,
-      },
-      template_id: 1,
-      template_name: "Template2",
-      template_image: null,
-      template_styles: {
-        bgcolor: "#00a8ee",
-        color: "red",
-        textSize: 10,
-        fontFamily: "Arial",
-        headingSize: 12,
-        sectionSpacing: 2,
-        lineSpacing: 1,
-        topbottomMargin: 1,
-        sideMargin: 1,
-        paragraphIndent: 1,
-      },
-      sections: {
-        has_personaldetails: true,
-        has_experience: true,
-        has_education: true,
-        has_certificates: true,
-        has_skills: true,
-        has_summary: true,
-        has_additional: false,
-      },
-      steps: [
-        { label: "Home", icon: <HomeIcon /> },
-        { label: "Personal Details", icon: <PersonIcon /> },
-        { label: "Summary", icon: <PersonIcon /> },
-        { label: "Skills", icon: <BuildIcon /> },
-        { label: "Education", icon: <SchoolIcon /> },
-        { label: "Certificate", icon: <SchoolIcon /> },
-        { label: "Projects", icon: <SchoolIcon /> },
-      ],
-    },
-    {
-      personaldetails: {
-        firstname: "VIGNESH",
-        lastname: "P",
-        email: "pvignesh358@gmail.com",
-        phone: "9566805138",
-        city: "Tenkasi",
-        country: "India",
-        pincode: "627818",
-        photo: null,
-        role: "Software Engineer",
-      },
-      summary: {
-        label: "summary",
-        value:
-          "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
-      },
-      skills: {
-        label: "skills",
-        value: [
-          "Power BI",
-          "Spotfire",
-          "Snowflake",
-          "SSRS",
-          "Excel",
-          "Oracle",
-          "DSE Graph",
-          "MySQL",
-          "CQL",
-          "Linux",
-          "Playwright",
-          "Golang",
-          "Python",
-          "Django",
-          "SQL",
-          "PLSQL",
-          "MLflow",
-          "git",
-        ],
-      },
-      experience: {
-        label: "experience",
-        value: [
-          {
-            position: "Retail Sales Associate",
-            company: "ZARA",
-            location: "New Delhi, India",
-            duration: "02/2017 - Current",
-            responsibilities:
-              "Increased monthly sales 10% by upselling products.",
-          },
-        ],
-        has_position: true,
-        has_company: true,
-        has_location: true,
-        has_duration: true,
-        has_responsibilities: true,
-      },
-      education: {
-        label: "education",
-        value: [
-          {
-            institution: "Oxford Software Institute, New Delhi",
-            degree: "Diploma in Financial Accounting",
-            year: "2016",
-            duration: "2 years",
-            location: "New Delhi",
-            marks: "80%",
-          },
-        ],
-        has_institution: true,
-        has_degree: true,
-        has_location: true,
-        has_duration: true,
-        has_mark: true,
-      },
-      certificate: {
-        label: "certificate",
-        value: [
-          {
-            name: "Advanced Algorithms and Data Structures",
-            year: "2021",
-            link: "",
-            organization: "",
-          },
-          {
-            name: "React Certification",
-            link: "",
-            year: "2024",
-            organization: "",
-          },
-        ],
-        has_link: true,
-        has_name: true,
-        has_year: true,
-        has_organization: true,
-      },
-      projects: {
-        label: "projects",
-        value: [
-          {
-            name: "Demo",
-            role: "developer",
-            description: "working on demo project",
-            location: "India",
-            duration: "2 years",
-          },
-        ],
-        has_name: true,
-        has_role: true,
-        has_location: true,
-        has_duration: true,
-        has_description: true,
-      },
-      template_id: 1,
-      template_name: "Template3",
-      template_image: null,
-      template_styles: {
-        bgcolor: "#00a8ee",
-        color: "red",
-        textSize: 10,
-        fontFamily: "Arial",
-        headingSize: 12,
-        sectionSpacing: 2,
-        lineSpacing: 1,
-        topbottomMargin: 1,
-        sideMargin: 1,
-        paragraphIndent: 1,
-      },
-      sections: {
-        has_personaldetails: true,
-        has_experience: true,
-        has_education: true,
-        has_certificates: true,
-        has_skills: true,
-        has_summary: true,
-        has_additional: false,
-      },
-      steps: [
-        { label: "Home", icon: <HomeIcon /> },
-        { label: "Personal Details", icon: <PersonIcon /> },
-        { label: "Summary", icon: <PersonIcon /> },
-        { label: "Skills", icon: <BuildIcon /> },
-        { label: "Education", icon: <SchoolIcon /> },
-        { label: "Certificate", icon: <SchoolIcon /> },
-        { label: "Projects", icon: <SchoolIcon /> },
-      ],
-    },
-    {
-      personaldetails: {
-        firstname: "VIGNESH",
-        lastname: "P",
-        email: "pvignesh358@gmail.com",
-        phone: "9566805138",
-        city: "Tenkasi",
-        country: "India",
-        pincode: "627818",
-        photo: null,
-        role: "Software Engineer",
-      },
-      summary: {
-        label: "summary",
-        value:
-          "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
-      },
-      skills: {
-        label: "skills",
-        value: [
-          "Power BI",
-          "Spotfire",
-          "Snowflake",
-          "SSRS",
-          "Excel",
-          "Oracle",
-          "DSE Graph",
-          "MySQL",
-          "CQL",
-          "Linux",
-          "Playwright",
-          "Golang",
-          "Python",
-          "Django",
-          "SQL",
-          "PLSQL",
-          "MLflow",
-          "git",
-        ],
-      },
-      experience: {
-        label: "experience",
-        value: [
-          {
-            position: "Retail Sales Associate",
-            company: "ZARA",
-            location: "New Delhi, India",
-            duration: "02/2017 - Current",
-            responsibilities:
-              "Increased monthly sales 10% by upselling products.",
-          },
-        ],
-        has_position: true,
-        has_company: true,
-        has_location: true,
-        has_duration: true,
-        has_responsibilities: true,
-      },
-      education: {
-        label: "education",
-        value: [
-          {
-            institution: "Oxford Software Institute, New Delhi",
-            degree: "Diploma in Financial Accounting",
-            year: "2016",
-            duration: "2 years",
-            location: "New Delhi",
-            marks: "80%",
-          },
-        ],
-        has_institution: true,
-        has_degree: true,
-        has_location: true,
-        has_duration: true,
-        has_mark: true,
-      },
-      certificate: {
-        label: "certificate",
-        value: [
-          {
-            name: "Advanced Algorithms and Data Structures",
-            year: "2021",
-            link: "",
-            organization: "",
-          },
-          {
-            name: "React Certification",
-            link: "",
-            year: "2024",
-            organization: "",
-          },
-        ],
-        has_link: true,
-        has_name: true,
-        has_year: true,
-        has_organization: true,
-      },
-      projects: {
-        label: "projects",
-        value: [
-          {
-            name: "Demo",
-            role: "developer",
-            description: "working on demo project",
-            location: "India",
-            duration: "2 years",
-          },
-        ],
-        has_name: true,
-        has_role: true,
-        has_location: true,
-        has_duration: true,
-        has_description: true,
-      },
-      template_id: 1,
-      template_name: "Template4",
-      template_image: null,
-      template_styles: {
-        bgcolor: "#00a8ee",
-        color: "red",
-        textSize: 10,
-        fontFamily: "Arial",
-        headingSize: 12,
-        sectionSpacing: 2,
-        lineSpacing: 1,
-        topbottomMargin: 1,
-        sideMargin: 1,
-        paragraphIndent: 1,
-      },
-      sections: {
-        has_personaldetails: true,
-        has_experience: true,
-        has_education: true,
-        has_certificates: true,
-        has_skills: true,
-        has_summary: true,
-        has_additional: false,
-      },
-      steps: [
-        { label: "Home", icon: <HomeIcon /> },
-        { label: "Personal Details", icon: <PersonIcon /> },
-        { label: "Summary", icon: <PersonIcon /> },
-        { label: "Skills", icon: <BuildIcon /> },
-        { label: "Education", icon: <SchoolIcon /> },
-        { label: "Certificate", icon: <SchoolIcon /> },
-        { label: "Projects", icon: <SchoolIcon /> },
-      ],
-    },
+    // {
+    //   personaldetails: {
+    //     firstname: "VIGNESH",
+    //     lastname: "P",
+    //     email: "pvignesh358@gmail.com",
+    //     phone: "9566805138",
+    //     city: "Tenkasi",
+    //     country: "India",
+    //     pincode: "627818",
+    //     photo: null,
+    //     role: "Software Engineer",
+    //   },
+    //   summary: {
+    //     label: "summary",
+    //     value:
+    //       "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
+    //   },
+    //   skills: {
+    //     label: "skills",
+    //     value: [
+    //       "Power BI",
+    //       "Spotfire",
+    //       "Snowflake",
+    //       "SSRS",
+    //       "Excel",
+    //       "Oracle",
+    //       "DSE Graph",
+    //       "MySQL",
+    //       "CQL",
+    //       "Linux",
+    //       "Playwright",
+    //       "Golang",
+    //       "Python",
+    //       "Django",
+    //       "SQL",
+    //       "PLSQL",
+    //       "MLflow",
+    //       "git",
+    //     ],
+    //   },
+    //   experience: {
+    //     label: "experience",
+    //     value: [
+    //       {
+    //         position: "Retail Sales Associate",
+    //         company: "ZARA",
+    //         location: "New Delhi, India",
+    //         duration: "02/2017 - Current",
+    //         responsibilities: [
+    //           "Increased monthly sales 10% by upselling products.",
+    //         ],
+    //       },
+    //     ],
+    //     has_position: true,
+    //     has_company: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_responsibilities: true,
+    //   },
+    //   education: {
+    //     label: "education",
+    //     value: [
+    //       {
+    //         institution: "Oxford Software Institute, New Delhi",
+    //         degree: "Diploma in Financial Accounting",
+    //         year: "2016",
+    //         duration: "2 years",
+    //         location: "New Delhi",
+    //         marks: "80%",
+    //       },
+    //     ],
+    //     has_institution: true,
+    //     has_degree: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_mark: true,
+    //   },
+    //   certificate: {
+    //     label: "certificate",
+    //     value: [
+    //       {
+    //         name: "Advanced Algorithms and Data Structures",
+    //         year: "2021",
+    //         link: "",
+    //         organization: "",
+    //       },
+    //       {
+    //         name: "React Certification",
+    //         link: "",
+    //         year: "2024",
+    //         organization: "",
+    //       },
+    //     ],
+    //     has_link: true,
+    //     has_name: true,
+    //     has_year: true,
+    //     has_organization: true,
+    //   },
+    //   projects: {
+    //     label: "projects",
+    //     value: [
+    //       {
+    //         name: "Demo",
+    //         role: "developer",
+    //         description: "working on demo project",
+    //         location: "India",
+    //         duration: "2 years",
+    //       },
+    //     ],
+    //     has_name: true,
+    //     has_role: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_description: true,
+    //   },
+    //   template_id: 1,
+    //   template_name: "Template2",
+    //   template_image: null,
+    //   template_styles: {
+    //     bgcolor: "#00a8ee",
+    //     color: "red",
+    //     textSize: 10,
+    //     fontFamily: "Arial",
+    //     headingSize: 12,
+    //     sectionSpacing: 2,
+    //     lineSpacing: 1,
+    //     topbottomMargin: 1,
+    //     sideMargin: 1,
+    //     paragraphIndent: 1,
+    //   },
+    //   sections: {
+    //     has_personaldetails: true,
+    //     has_experience: true,
+    //     has_education: true,
+    //     has_certificates: true,
+    //     has_skills: true,
+    //     has_summary: true,
+    //     has_additional: false,
+    //   },
+    //   steps: [
+    //     { label: "Home", icon: <HomeIcon /> },
+    //     { label: "Personal Details", icon: <PersonIcon /> },
+    //     { label: "Summary", icon: <PersonIcon /> },
+    //     { label: "Skills", icon: <BuildIcon /> },
+    //     { label: "Education", icon: <SchoolIcon /> },
+    //     { label: "Certificate", icon: <SchoolIcon /> },
+    //     { label: "Projects", icon: <SchoolIcon /> },
+    //   ],
+    // },
+    // {
+    //   personaldetails: {
+    //     firstname: "VIGNESH",
+    //     lastname: "P",
+    //     email: "pvignesh358@gmail.com",
+    //     phone: "9566805138",
+    //     city: "Tenkasi",
+    //     country: "India",
+    //     pincode: "627818",
+    //     photo: null,
+    //     role: "Software Engineer",
+    //   },
+    //   summary: {
+    //     label: "summary",
+    //     value:
+    //       "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
+    //   },
+    //   skills: {
+    //     label: "skills",
+    //     value: [
+    //       "Power BI",
+    //       "Spotfire",
+    //       "Snowflake",
+    //       "SSRS",
+    //       "Excel",
+    //       "Oracle",
+    //       "DSE Graph",
+    //       "MySQL",
+    //       "CQL",
+    //       "Linux",
+    //       "Playwright",
+    //       "Golang",
+    //       "Python",
+    //       "Django",
+    //       "SQL",
+    //       "PLSQL",
+    //       "MLflow",
+    //       "git",
+    //     ],
+    //   },
+    //   experience: {
+    //     label: "experience",
+    //     value: [
+    //       {
+    //         position: "Retail Sales Associate",
+    //         company: "ZARA",
+    //         location: "New Delhi, India",
+    //         duration: "02/2017 - Current",
+    //         responsibilities:
+    //           "Increased monthly sales 10% by upselling products.",
+    //       },
+    //     ],
+    //     has_position: true,
+    //     has_company: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_responsibilities: true,
+    //   },
+    //   education: {
+    //     label: "education",
+    //     value: [
+    //       {
+    //         institution: "Oxford Software Institute, New Delhi",
+    //         degree: "Diploma in Financial Accounting",
+    //         year: "2016",
+    //         duration: "2 years",
+    //         location: "New Delhi",
+    //         marks: "80%",
+    //       },
+    //     ],
+    //     has_institution: true,
+    //     has_degree: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_mark: true,
+    //   },
+    //   certificate: {
+    //     label: "certificate",
+    //     value: [
+    //       {
+    //         name: "Advanced Algorithms and Data Structures",
+    //         year: "2021",
+    //         link: "",
+    //         organization: "",
+    //       },
+    //       {
+    //         name: "React Certification",
+    //         link: "",
+    //         year: "2024",
+    //         organization: "",
+    //       },
+    //     ],
+    //     has_link: true,
+    //     has_name: true,
+    //     has_year: true,
+    //     has_organization: true,
+    //   },
+    //   projects: {
+    //     label: "projects",
+    //     value: [
+    //       {
+    //         name: "Demo",
+    //         role: "developer",
+    //         description: "working on demo project",
+    //         location: "India",
+    //         duration: "2 years",
+    //       },
+    //     ],
+    //     has_name: true,
+    //     has_role: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_description: true,
+    //   },
+    //   template_id: 1,
+    //   template_name: "Template3",
+    //   template_image: null,
+    //   template_styles: {
+    //     bgcolor: "#00a8ee",
+    //     color: "red",
+    //     textSize: 10,
+    //     fontFamily: "Arial",
+    //     headingSize: 12,
+    //     sectionSpacing: 2,
+    //     lineSpacing: 1,
+    //     topbottomMargin: 1,
+    //     sideMargin: 1,
+    //     paragraphIndent: 1,
+    //   },
+    //   sections: {
+    //     has_personaldetails: true,
+    //     has_experience: true,
+    //     has_education: true,
+    //     has_certificates: true,
+    //     has_skills: true,
+    //     has_summary: true,
+    //     has_additional: false,
+    //   },
+    //   steps: [
+    //     { label: "Home", icon: <HomeIcon /> },
+    //     { label: "Personal Details", icon: <PersonIcon /> },
+    //     { label: "Summary", icon: <PersonIcon /> },
+    //     { label: "Skills", icon: <BuildIcon /> },
+    //     { label: "Education", icon: <SchoolIcon /> },
+    //     { label: "Certificate", icon: <SchoolIcon /> },
+    //     { label: "Projects", icon: <SchoolIcon /> },
+    //   ],
+    // },
+    // {
+    //   personaldetails: {
+    //     firstname: "VIGNESH",
+    //     lastname: "P",
+    //     email: "pvignesh358@gmail.com",
+    //     phone: "9566805138",
+    //     city: "Tenkasi",
+    //     country: "India",
+    //     pincode: "627818",
+    //     photo: null,
+    //     role: "Software Engineer",
+    //   },
+    //   summary: {
+    //     label: "summary",
+    //     value:
+    //       "Motivated Data Visualization Engineer with 3 years of experience specializing in Spotfire, Power BI, SQL, and Python. Skilled in advanced data analytics and visualization, with a strong background in designing scalable relational and NoSQL database solutions. Proficient in data migration and integration, complex data structures, and transaction management. Adept at solving technical challenges in dynamic environments, with a commitment to continuous learning and improvement. Experienced in working with various databases including MySQL, Postgres, Oracle, Hive, and YugabyteDB.",
+    //   },
+    //   skills: {
+    //     label: "skills",
+    //     value: [
+    //       "Power BI",
+    //       "Spotfire",
+    //       "Snowflake",
+    //       "SSRS",
+    //       "Excel",
+    //       "Oracle",
+    //       "DSE Graph",
+    //       "MySQL",
+    //       "CQL",
+    //       "Linux",
+    //       "Playwright",
+    //       "Golang",
+    //       "Python",
+    //       "Django",
+    //       "SQL",
+    //       "PLSQL",
+    //       "MLflow",
+    //       "git",
+    //     ],
+    //   },
+    //   experience: {
+    //     label: "experience",
+    //     value: [
+    //       {
+    //         position: "Retail Sales Associate",
+    //         company: "ZARA",
+    //         location: "New Delhi, India",
+    //         duration: "02/2017 - Current",
+    //         responsibilities:
+    //           "Increased monthly sales 10% by upselling products.",
+    //       },
+    //     ],
+    //     has_position: true,
+    //     has_company: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_responsibilities: true,
+    //   },
+    //   education: {
+    //     label: "education",
+    //     value: [
+    //       {
+    //         institution: "Oxford Software Institute, New Delhi",
+    //         degree: "Diploma in Financial Accounting",
+    //         year: "2016",
+    //         duration: "2 years",
+    //         location: "New Delhi",
+    //         marks: "80%",
+    //       },
+    //     ],
+    //     has_institution: true,
+    //     has_degree: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_mark: true,
+    //   },
+    //   certificate: {
+    //     label: "certificate",
+    //     value: [
+    //       {
+    //         name: "Advanced Algorithms and Data Structures",
+    //         year: "2021",
+    //         link: "",
+    //         organization: "",
+    //       },
+    //       {
+    //         name: "React Certification",
+    //         link: "",
+    //         year: "2024",
+    //         organization: "",
+    //       },
+    //     ],
+    //     has_link: true,
+    //     has_name: true,
+    //     has_year: true,
+    //     has_organization: true,
+    //   },
+    //   projects: {
+    //     label: "projects",
+    //     value: [
+    //       {
+    //         name: "Demo",
+    //         role: "developer",
+    //         description: "working on demo project",
+    //         location: "India",
+    //         duration: "2 years",
+    //       },
+    //     ],
+    //     has_name: true,
+    //     has_role: true,
+    //     has_location: true,
+    //     has_duration: true,
+    //     has_description: true,
+    //   },
+    //   template_id: 1,
+    //   template_name: "Template4",
+    //   template_image: null,
+    //   template_styles: {
+    //     bgcolor: "#00a8ee",
+    //     color: "red",
+    //     textSize: 10,
+    //     fontFamily: "Arial",
+    //     headingSize: 12,
+    //     sectionSpacing: 2,
+    //     lineSpacing: 1,
+    //     topbottomMargin: 1,
+    //     sideMargin: 1,
+    //     paragraphIndent: 1,
+    //   },
+    //   sections: {
+    //     has_personaldetails: true,
+    //     has_experience: true,
+    //     has_education: true,
+    //     has_certificates: true,
+    //     has_skills: true,
+    //     has_summary: true,
+    //     has_additional: false,
+    //   },
+    //   steps: [
+    //     { label: "Home", icon: <HomeIcon /> },
+    //     { label: "Personal Details", icon: <PersonIcon /> },
+    //     { label: "Summary", icon: <PersonIcon /> },
+    //     { label: "Skills", icon: <BuildIcon /> },
+    //     { label: "Education", icon: <SchoolIcon /> },
+    //     { label: "Certificate", icon: <SchoolIcon /> },
+    //     { label: "Projects", icon: <SchoolIcon /> },
+    //   ],
+    // },
   ]);
   const [showAll, setShowAll] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [activeTab, setActiveTab] = useState(0);
+
+  const Clicks = () => {
+    console.log("====================================");
+    console.log("te", te);
+    console.log("====================================");
+    const cookies = te.split("; ").reduce((acc, cookie) => {
+      const [name, value] = cookie.split("=");
+      acc[name] = value;
+      return acc;
+    }, {});
+    console.log("====================================");
+    console.log(cookies);
+    console.log("====================================");
+    const headers = {
+      "Content-Type": "application/json",
+      "X-CSRFToken": cookies.csrftoken,
+    };
+    axios
+      .get("http://localhost:8000/api/user-details/", { headers })
+      .then((res1) => {
+        console.log("res", res1.data);
+        // setAllTemplates(res.data);
+      })
+      .catch((err1) => {
+        console.log("err", err1);
+      });
+  };
 
   // Calculate the number of items that can fit in the first row
   const itemsPerRow = Math.floor(window.innerWidth / 320); // Assuming each item has width 300px + margin
@@ -779,13 +856,17 @@ export default function Template() {
   return (
     <div
       style={{
-        background: "linear-gradient(180deg, #fff 0%, #ceeeff 100%)",
+        // background: "linear-gradient(180deg, #fff 0%, #ceeeff 100%)",
         height: "100vh",
       }}
     >
       {activeTab === 0 && (
         <>
           <Navbar />
+          {/* <Button onClick={Clicks} variant="contained" color="primary">
+            csdn
+          </Button> */}
+          {/* <Test/> */}
           <Box sx={{ padding: 4 }}>
             <Box
               sx={{
