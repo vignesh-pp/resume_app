@@ -149,6 +149,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               <p
                 className="skill"
                 style={{ fontSize: isPreview ? "10px" : "" }}
+                key={skill}
               >
                 {skill}
               </p>

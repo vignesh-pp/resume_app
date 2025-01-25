@@ -21,49 +21,60 @@ const ExperienceComponent = ({
   tempEntry,
   handleChangesss,
   handleSave,
-  currentSection,
+  currentSection = "experience",
   editIndex,
   resetForm,
   CustomTextBoxStyle,
   labelStyle,
+  isFormOpen,
 }) => {
   return (
     <Box>
-      {selectedTemplate.experience.value.map((item, index) => (
-        <Card key={index} sx={{ mb: 2 }}>
-          <CardContent className="d-flex justify-content-between">
-            <div>
-              <Typography variant="h6">{item.position}</Typography>
-              <Typography variant="body2"> {item.company}</Typography>
-              <Typography variant="body2"> {item.location}</Typography>
-              <Typography variant="body2"> {item.duration}</Typography>
-              {/* <Typography variant="body2">
-               {item.responsibilities}
-            </Typography> */}
-            </div>
-            <div>
-              <Box>
-                <EditIcon
-                  sx={{
-                    cursor: "pointer",
-                    "&:hover": { color: "#3b82f6" },
-                    color: "gray",
+      {isFormOpen === null &&
+        selectedTemplate.experience.value.map((item, index) => (
+          <Card key={index} sx={{ mb: 2 }}>
+            <CardContent className="d-flex justify-content-between">
+              <div style={{ fontSize: "13px" }}>
+                <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                  {item.company}
+                </div>
+                <div>
+                  {item.position}
+                  {item.location && " • " + item.location}
+                  {item.duration && " • " + item.duration}
+                </div>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: item.responsibilities,
                   }}
-                  onClick={() => handleEdit("experience", index)}
-                />
-                <DeleteIcon
-                  sx={{
-                    cursor: "pointer",
-                    "&:hover": { color: "#ef4444" },
-                    color: "gray",
-                  }}
-                  onClick={() => handleDelete("experience", index)}
-                />
-              </Box>
-            </div>
-          </CardContent>
-        </Card>
-      ))}
+                  style={{ margin: "0px" }}
+                ></div>
+              </div>
+              <div>
+                <Box>
+                  <EditIcon
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": { color: "#3b82f6" },
+                      color: "gray",
+                      fontSize: "16px",
+                    }}
+                    onClick={() => handleEdit("experience", index)}
+                  />
+                  <DeleteIcon
+                    sx={{
+                      cursor: "pointer",
+                      "&:hover": { color: "#ef4444" },
+                      color: "gray",
+                      fontSize: "16px",
+                    }}
+                    onClick={() => handleDelete("experience", index)}
+                  />
+                </Box>
+              </div>
+            </CardContent>
+          </Card>
+        ))}
       <Button
         variant="contained"
         onClick={() => handleAdd("experience")}

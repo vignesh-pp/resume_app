@@ -19,7 +19,7 @@ const CertificateComponent = ({
   tempEntry,
   handleChangesss,
   handleSave,
-  currentSection,
+  currentSection = "certificate",
   editIndex,
   resetForm,
   CustomTextBoxStyle,
@@ -29,40 +29,45 @@ const CertificateComponent = ({
   return (
     <Box>
       <>
-        {selectedTemplate.certificate.value.map((item, index) => (
-          <Card key={index} sx={{ mb: 2 }}>
-            <CardContent className="d-flex justify-content-between">
-              <div>
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body2"> {item.year}</Typography>
-                {/* <Typography variant="body2">Link: {item.link}</Typography> */}
-                {/* <Typography variant="body2">
+        {isFormOpen === null &&
+          selectedTemplate.certificate.value.map((item, index) => (
+            <Card key={index} sx={{ mb: 2 }}>
+              <CardContent className="d-flex justify-content-between">
+                <div>
+                  <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    {item.name}
+                  </div>
+                  <div style={{ fontSize: "13px" }}>{item.year}</div>
+                  {/* <Typography variant="body2">Link: {item.link}</Typography> */}
+                  {/* <Typography variant="body2">
                 organization: {item.organization}
               </Typography> */}
-              </div>
-              <div>
-                <Box >
-                  <EditIcon
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: "#3b82f6" },
-                      color: "gray",
-                    }}
-                    onClick={() => handleEdit("certificate", index)}
-                  />
-                  <DeleteIcon
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: "#ef4444" },
-                      color: "gray",
-                    }}
-                    onClick={() => handleDelete("certificate", index)}
-                  />
-                </Box>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                </div>
+                <div>
+                  <Box>
+                    <EditIcon
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: "#3b82f6" },
+                        color: "gray",
+                        fontSize: "16px",
+                      }}
+                      onClick={() => handleEdit("certificate", index)}
+                    />
+                    <DeleteIcon
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: "#ef4444" },
+                        color: "gray",
+                        fontSize: "16px",
+                      }}
+                      onClick={() => handleDelete("certificate", index)}
+                    />
+                  </Box>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
 
         <>
           <Button
@@ -183,6 +188,7 @@ const CertificateComponent = ({
                 </Typography>
                 <TextField
                   // label="Title"
+                  placeholder="Enter title"
                   fullWidth
                   margin="normal"
                   value={tempEntry.name}
@@ -205,6 +211,7 @@ const CertificateComponent = ({
                 </Typography>
                 <TextField
                   // label="Link"
+                  placeholder="Enter year"
                   fullWidth
                   margin="normal"
                   value={tempEntry.year}

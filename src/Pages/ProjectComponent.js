@@ -21,7 +21,7 @@ const ProjectComponent = ({
   tempEntry,
   handleChangesss,
   handleSave,
-  currentSection,
+  currentSection='projects',
   editIndex,
   resetForm,
   CustomTextBoxStyle,
@@ -31,39 +31,50 @@ const ProjectComponent = ({
   return (
     <Box>
       <>
-        {selectedTemplate.projects.value.map((item, index) => (
-          <Card key={index} sx={{ mb: 2 }}>
-            <CardContent className="d-flex justify-content-between">
-              <div>
-                <Typography variant="h6">{item.name}</Typography>
-                <Typography variant="body2"> {item.duration}</Typography>
-                {/* <Typography variant="body2"> {item.role}</Typography> */}
-                <Typography variant="body2"> {item.location}</Typography>
-                <Typography variant="body2">{item.description}</Typography>
-              </div>
-              <div>
-                <Box>
-                  <EditIcon
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: "#3b82f6" },
-                      color: "gray",
+        {isFormOpen === null &&
+          selectedTemplate.projects.value.map((item, index) => (
+            <Card key={index} sx={{ mb: 2 }}>
+              <CardContent className="d-flex justify-content-between">
+                <div style={{ fontSize: "13px" }}>
+                  <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    {item.name}
+                    {item.role && " • " + item.role}
+                    {item.location && " • " + item.location}
+                    {item.duration && " • " + item.duration}
+                  </div>
+
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: item.description,
                     }}
-                    onClick={() => handleEdit("projetcs", index)}
-                  />
-                  <DeleteIcon
-                    sx={{
-                      cursor: "pointer",
-                      "&:hover": { color: "#ef4444" },
-                      color: "gray",
-                    }}
-                    onClick={() => handleDelete("projetcs", index)}
-                  />
-                </Box>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+                    style={{ margin: "0px" }}
+                  ></div>
+                </div>
+                <div>
+                  <Box>
+                    <EditIcon
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: "#3b82f6" },
+                        color: "gray",
+                        fontSize: "16px",
+                      }}
+                      onClick={() => handleEdit("projects", index)}
+                    />
+                    <DeleteIcon
+                      sx={{
+                        cursor: "pointer",
+                        "&:hover": { color: "#ef4444" },
+                        color: "gray",
+                        fontSize: "16px",
+                      }}
+                      onClick={() => handleDelete("projects", index)}
+                    />
+                  </Box>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
 
         <>
           <Button
@@ -84,94 +95,95 @@ const ProjectComponent = ({
               ? `Edit ${currentSection}`
               : `Add New ${currentSection}`}
           </Typography>
-          {currentSection === "projects" && (
-            <>
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  // marginLeft: "10px",
-                  ...labelStyle,
-                }}
-              >
-                Project Name
-              </Typography>
-              <TextField
-                // label="Title"
-                fullWidth
-                margin="normal"
-                value={tempEntry.name}
-                onChange={(e) => handleChangesss("name", e.target.value)}
-                size="small"
-                sx={{
-                  // marginLeft: "10px",
-                  ...CustomTextBoxStyle,
-                }}
-              />
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  // marginLeft: "10px",
-                  ...labelStyle,
-                }}
-              >
-                Role
-              </Typography>
-              <TextField
-                // label="Link"
-                fullWidth
-                margin="normal"
-                value={tempEntry.role}
-                onChange={(e) => handleChangesss("role", e.target.value)}
-                size="small"
-                sx={{
-                  // marginLeft: "10px",
-                  ...CustomTextBoxStyle,
-                }}
-              />
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  // marginLeft: "10px",
-                  ...labelStyle,
-                }}
-              >
-                Duration
-              </Typography>
-              <TextField
-                // label="Link"
-                fullWidth
-                margin="normal"
-                value={tempEntry.duration}
-                onChange={(e) => handleChangesss("duration", e.target.value)}
-                size="small"
-                sx={{
-                  // marginLeft: "10px",
-                  ...CustomTextBoxStyle,
-                }}
-              />
-              <Typography
-                variant="subtitle2"
-                sx={{
-                  // marginLeft: "10px",
-                  ...labelStyle,
-                }}
-              >
-                Description
-              </Typography>
-              <ReactQuill
-                theme="snow"
-                modules={{
-                  toolbar: [
-                    ["bold", "italic", "underline"], // Text styling
-                    [{ list: "ordered" }, { list: "bullet" }], // List options
-                  ],
-                }}
-                style={{ height: "100px" }}
-                value={tempEntry.description || ""}
-                onChange={(e) => handleChangesss("description", e)}
-              />
-            </>
-          )}
+          {/* {currentSection === "projects" && ( */}
+          <>
+            <Typography
+              variant="subtitle2"
+              sx={{
+                // marginLeft: "10px",
+                ...labelStyle,
+              }}
+            >
+              Project Name
+            </Typography>
+            <TextField
+              // label="Title"
+              fullWidth
+              margin="normal"
+              value={tempEntry.name}
+              onChange={(e) => handleChangesss("name", e.target.value)}
+              size="small"
+              sx={{
+                // marginLeft: "10px",
+                ...CustomTextBoxStyle,
+              }}
+            />
+            <Typography
+              variant="subtitle2"
+              sx={{
+                // marginLeft: "10px",
+                ...labelStyle,
+              }}
+            >
+              Role
+            </Typography>
+            <TextField
+              // label="Link"
+              fullWidth
+              margin="normal"
+              value={tempEntry.role}
+              onChange={(e) => handleChangesss("role", e.target.value)}
+              size="small"
+              sx={{
+                // marginLeft: "10px",
+                ...CustomTextBoxStyle,
+              }}
+            />
+            <Typography
+              variant="subtitle2"
+              sx={{
+                // marginLeft: "10px",
+                ...labelStyle,
+              }}
+            >
+              Duration
+            </Typography>
+            <TextField
+              // label="Link"
+              type="date"
+              fullWidth
+              margin="normal"
+              value={tempEntry.duration}
+              onChange={(e) => handleChangesss("duration", e.target.value)}
+              size="small"
+              sx={{
+                // marginLeft: "10px",
+                ...CustomTextBoxStyle,
+              }}
+            />
+            <Typography
+              variant="subtitle2"
+              sx={{
+                // marginLeft: "10px",
+                ...labelStyle,
+              }}
+            >
+              Description
+            </Typography>
+            <ReactQuill
+              theme="snow"
+              modules={{
+                toolbar: [
+                  ["bold", "italic", "underline"], // Text styling
+                  [{ list: "ordered" }, { list: "bullet" }], // List options
+                ],
+              }}
+              style={{ height: "100px" }}
+              value={tempEntry.description || ""}
+              onChange={(e) => handleChangesss("description", e)}
+            />
+          </>
+          {/* )} */}
           <Box mt={2}>
             <Button variant="contained" onClick={handleSave} sx={{ mr: 2 }}>
               {editIndex !== null ? "Update" : "Add"}

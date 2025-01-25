@@ -184,6 +184,7 @@ function TemplatePreview(props) {
   };
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // setCurrentSection('certificate')
   };
 
   const handleBack = () => {
@@ -305,6 +306,7 @@ function TemplatePreview(props) {
     //   const updatedList = prev[section].value.filter((_, i) => i !== index);
     //   return { ...prev, [section]: { value: updatedList } };
     // });
+    console.log(section);
 
     setSelectedTemplate((prev) => {
       const updatedList = prev[section].value.filter((_, i) => i !== index);
@@ -408,7 +410,11 @@ function TemplatePreview(props) {
               borderBottom: "1px solid gray",
             }}
           >
-            <Typography variant="h5" gutterBottom>
+            <Typography
+              variant="h5"
+              gutterBottom
+              style={{ marginLeft: "10px" }}
+            >
               {steps[activeStep] &&
                 steps[activeStep].label &&
                 steps[activeStep].label}
@@ -428,7 +434,7 @@ function TemplatePreview(props) {
                 variant="contained"
                 onClick={handleNext}
                 disabled={activeStep === steps.length}
-                sx={{ mr: 2 }}
+                // sx={{ mr: 2 }}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
@@ -480,6 +486,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="First Name"
+                            placeholder="Enter first name"
                             fullWidth
                             margin="normal"
                             value={selectedTemplate.personaldetails.firstname}
@@ -502,6 +509,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="Last Name"
+                            placeholder="Enter last name"
                             fullWidth
                             margin="normal"
                             value={selectedTemplate.personaldetails.lastname}
@@ -522,6 +530,7 @@ function TemplatePreview(props) {
                         </Typography>
                         <TextField
                           // label="Email"
+                          placeholder="Email"
                           fullWidth
                           margin="normal"
                           value={selectedTemplate.personaldetails.email}
@@ -538,6 +547,7 @@ function TemplatePreview(props) {
                         </Typography>
                         <TextField
                           // label="Phone"
+                          placeholder="Enter phone number"
                           fullWidth
                           margin="normal"
                           value={selectedTemplate.personaldetails.phone}
@@ -561,6 +571,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="City"
+                            placeholder="Enter city"
                             fullWidth
                             margin="normal"
                             value={selectedTemplate.personaldetails.city}
@@ -583,6 +594,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="Country"
+                            placeholder="Enter  country"
                             fullWidth
                             margin="normal"
                             value={selectedTemplate.personaldetails.country}
@@ -608,6 +620,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="Pincode"
+                            placeholder="Enter pincode"
                             fullWidth
                             margin="normal"
                             value={selectedTemplate.personaldetails.pincode}
@@ -637,23 +650,11 @@ function TemplatePreview(props) {
                               [{ list: "ordered" }, { list: "bullet" }], // List options
                             ],
                           }}
-                          style={{ height: "400px" }}
+                          placeholder="Enter professional summary"
+                          style={{ height: "400px", width: "100%" }}
                           value={selectedTemplate.summary?.value || ""}
                           onChange={(e) => handleChange("summary", e)}
                         />
-                        {/* <TextField
-                          fullWidth
-                          type="textarea"
-                          margin="normal"
-                          value={selectedTemplate.summary?.value || ""}
-                          onChange={(e) => handleChange("summary", e)}
-                          size="small"
-                          sx={{
-                            marginLeft: "10px",
-                            ...CustomTextBoxStyle,
-                            height: "400px",                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                          }}
-                        /> */}
                       </div>
                     </Box>
                   )}
@@ -673,7 +674,7 @@ function TemplatePreview(props) {
                             value={selectedSkillOptions} // Convert selected values to react-select format
                             onChange={handleSkillChange} // Handle selecting options
                             onCreateOption={handleCreate} // Handle creating a new option
-                            placeholder="Type to search or add..."
+                            placeholder="Type to search or add new skill"
                           />
                           {/* Chips for selected skills */}
                           <div
@@ -708,7 +709,8 @@ function TemplatePreview(props) {
                               [{ list: "ordered" }, { list: "bullet" }], // List options
                             ],
                           }}
-                          style={{ height: "400px" }}
+                          style={{ height: "400px", width: "100%" }}
+                          placeholder="Enter skills"
                           value={selectedTemplate.skills?.value || ""}
                           onChange={(e) => handleChange("skills", e)}
                         />
@@ -717,257 +719,24 @@ function TemplatePreview(props) {
                   )}
                   {/* Education */}
                   {activeStep === 4 && (
-                    <>
-                      {/* {selectedTemplate.education?.value?.map((edu, index) => (
-                        <Box key={index} mt={2}>
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...labelStyle,
-                            }}
-                          >
-                            Institution
-                          </Typography>
-                          <TextField
-                            // label="Institution"
-                            fullWidth
-                            margin="normal"
-                            value={edu.institution}
-                            onChange={(e) =>
-                              handleNestedChange(
-                                "education",
-                                index,
-                                "institution",
-                                e.target.value
-                              )
-                            }
-                            size="small"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...CustomTextBoxStyle,
-                            }}
-                          />
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...labelStyle,
-                            }}
-                          >
-                            Degree
-                          </Typography>
-                          <TextField
-                            // label="Degree"
-                            fullWidth
-                            margin="normal"
-                            value={edu.degree}
-                            onChange={(e) =>
-                              handleNestedChange(
-                                "education",
-                                index,
-                                "degree",
-                                e.target.value
-                              )
-                            }
-                            size="small"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...CustomTextBoxStyle,
-                            }}
-                          />
-                          <Typography
-                            variant="subtitle2"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...labelStyle,
-                            }}
-                          >
-                            Year
-                          </Typography>
-                          <TextField
-                            // label="Year"
-                            fullWidth
-                            margin="normal"
-                            value={edu.year}
-                            onChange={(e) =>
-                              handleNestedChange(
-                                "education",
-                                index,
-                                "year",
-                                e.target.value
-                              )
-                            }
-                            size="small"
-                            sx={{
-                              // marginLeft: "10px",
-                              ...CustomTextBoxStyle,
-                            }}
-                          />
-                          <Button
-                            color="error"
-                            onClick={() => handleDeleteItem("education", index)}
-                            sx={{ mt: 1 }}
-                          >
-                            Delete Education
-                          </Button>
-                          <Divider sx={{ my: 2 }} />
-                        </Box>
-                      ))}
-                      <Button
-                        variant="outlined"
-                        startIcon={<Add />}
-                        onClick={() =>
-                          handleAddItem("education", {
-                            institution: "",
-                            degree: "",
-                            year: "",
-                            duration: "",
-                            location: "",
-                            marks: "",
-                          })
-                        }
-                      >
-                        Add Education
-                      </Button> */}
-
-                      {/* Education Section */}
-                      <EducationComponent
-                        selectedTemplate={selectedTemplate}
-                        handleEdit={handleEdit}
-                        handleDelete={handleDelete}
-                        handleAdd={handleAdd}
-                        tempEntry={tempEntry}
-                        handleChangesss={handleChangesss}
-                        handleSave={handleSave}
-                        currentSection={currentSection}
-                        editIndex={editIndex}
-                        resetForm={resetForm}
-                        CustomTextBoxStyle={CustomTextBoxStyle}
-                        labelStyle={labelStyle}
-                        isFormOpen={isFormOpen}
-                      />
-                    </>
+                    <EducationComponent
+                      selectedTemplate={selectedTemplate}
+                      handleEdit={handleEdit}
+                      handleDelete={handleDelete}
+                      handleAdd={handleAdd}
+                      tempEntry={tempEntry}
+                      handleChangesss={handleChangesss}
+                      handleSave={handleSave}
+                      currentSection={currentSection}
+                      editIndex={editIndex}
+                      resetForm={resetForm}
+                      CustomTextBoxStyle={CustomTextBoxStyle}
+                      labelStyle={labelStyle}
+                      isFormOpen={isFormOpen}
+                    />
                   )}
                   {/* Certificates */}
                   {activeStep === 5 && (
-                    // <>
-                    //   {selectedTemplate.certificate?.value?.map(
-                    //     (edu, index) => (
-                    // <Box key={index} mt={2}>
-                    //   <Typography
-                    //     variant="subtitle2"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...labelStyle,
-                    //     }}
-                    //   >
-                    //     Title
-                    //   </Typography>
-                    //   <TextField
-                    //     // label="Title"
-                    //     fullWidth
-                    //     margin="normal"
-                    //     value={edu.name}
-                    //     onChange={(e) =>
-                    //       handleNestedChange(
-                    //         "certificate",
-                    //         index,
-                    //         "name",
-                    //         e.target.value
-                    //       )
-                    //     }
-                    //     size="small"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...CustomTextBoxStyle,
-                    //     }}
-                    //   />
-                    //   {/* <Typography
-                    //     variant="subtitle2"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...labelStyle,
-                    //     }}
-                    //   >
-                    //     Link
-                    //   </Typography>
-                    //   <TextField
-                    //     // label="Link"
-                    //     fullWidth
-                    //     margin="normal"
-                    //     value={edu.link}
-                    //     onChange={(e) =>
-                    //       handleNestedChange(
-                    //         "certificate",
-                    //         index,
-                    //         "link",
-                    //         e.target.value
-                    //       )
-                    //     }
-                    //     size="small"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...CustomTextBoxStyle,
-                    //     }}
-                    //   /> */}
-                    //   <Typography
-                    //     variant="subtitle2"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...labelStyle,
-                    //     }}
-                    //   >
-                    //     Year
-                    //   </Typography>
-                    //   <TextField
-                    //     // label="Link"
-                    //     fullWidth
-                    //     margin="normal"
-                    //     value={edu.year}
-                    //     onChange={(e) =>
-                    //       handleNestedChange(
-                    //         "certificate",
-                    //         index,
-                    //         "year",
-                    //         e.target.value
-                    //       )
-                    //     }
-                    //     size="small"
-                    //     sx={{
-                    //       // marginLeft: "10px",
-                    //       ...CustomTextBoxStyle,
-                    //     }}
-                    //   />
-
-                    //   <Button
-                    //     color="error"
-                    //     onClick={() =>
-                    //       handleDeleteItem("certificate", index)
-                    //     }
-                    //     sx={{ mt: 1 }}
-                    //   >
-                    //     Delete Certificate
-                    //   </Button>
-                    //   <Divider sx={{ my: 2 }} />
-                    // </Box>
-
-                    //     )
-                    //   )}
-                    //   <Button
-                    //     variant="outlined"
-                    //     startIcon={<Add />}
-                    //     onClick={() =>
-                    //       handleAddItem("certificate", {
-                    //         title: "",
-                    //         link: "",
-                    //         year: "",
-                    //       })
-                    //     }
-                    //   >
-                    //     Add Certificate
-                    //   </Button>
-                    // </>
                     <CertificateComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -987,180 +756,6 @@ function TemplatePreview(props) {
 
                   {/* Experience */}
                   {activeStep === 6 && (
-                    // <>
-                    //   {selectedTemplate.experience?.value?.map((edu, index) => (
-                    //     <Box key={index} mt={2}>
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Position
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Title"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.position}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "experience",
-                    //             index,
-                    //             "position",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Company
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Link"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.company}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "experience",
-                    //             index,
-                    //             "company",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Location
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Link"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.location}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "experience",
-                    //             index,
-                    //             "location",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Duration
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Link"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.duration}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "experience",
-                    //             index,
-                    //             "duration",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Responsibilities
-                    //       </Typography>
-
-                    //       <ReactQuill
-                    //         theme="snow"
-                    //         // ref={editorRef}
-                    //         modules={{
-                    //           toolbar: [
-                    //             ["bold", "italic", "underline"], // Text styling
-                    //             [{ list: "ordered" }, { list: "bullet" }], // List options
-                    //           ],
-                    //         }}
-                    //         style={{ height: "100px" }}
-                    //         value={edu.responsibilities || ""}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "experience",
-                    //             index,
-                    //             "responsibilities",
-                    //             e
-                    //           )
-                    //         }
-                    //       />
-
-                    //       <Button
-                    //         color="error"
-                    //         onClick={() =>
-                    //           handleDeleteItem("experience", index)
-                    //         }
-                    //         sx={{ mt: 1 }}
-                    //       >
-                    //         Delete Experience
-                    //       </Button>
-                    //       <Divider sx={{ my: 2 }} />
-                    //     </Box>
-                    //   ))}
-                    //   <Button
-                    //     variant="outlined"
-                    //     startIcon={<Add />}
-                    //     onClick={() =>
-                    //       handleAddItem("experience", {
-                    //         position: "",
-                    //         company: "",
-                    //         location: "",
-                    //         duration: "",
-                    //         responsibilities: "",
-                    //       })
-                    //     }
-                    //   >
-                    //     Add Experience
-                    //   </Button>
-                    // </>
                     <ExperienceComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -1174,153 +769,12 @@ function TemplatePreview(props) {
                       resetForm={resetForm}
                       CustomTextBoxStyle={CustomTextBoxStyle}
                       labelStyle={labelStyle}
+                      isFormOpen={isFormOpen}
                     />
                   )}
 
                   {/* Projects */}
                   {activeStep === 7 && (
-                    // <>
-                    //   {selectedTemplate.projects?.value?.map((edu, index) => (
-                    //     <Box key={index} mt={2}>
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Project Name
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Title"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.name}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "projects",
-                    //             index,
-                    //             "name",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Role
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Link"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.role}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "projects",
-                    //             index,
-                    //             "role",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Duration
-                    //       </Typography>
-                    //       <TextField
-                    //         // label="Link"
-                    //         fullWidth
-                    //         margin="normal"
-                    //         value={edu.duration}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "projects",
-                    //             index,
-                    //             "duration",
-                    //             e.target.value
-                    //           )
-                    //         }
-                    //         size="small"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...CustomTextBoxStyle,
-                    //         }}
-                    //       />
-                    //       <Typography
-                    //         variant="subtitle2"
-                    //         sx={{
-                    //           // marginLeft: "10px",
-                    //           ...labelStyle,
-                    //         }}
-                    //       >
-                    //         Description
-                    //       </Typography>
-                    //       <ReactQuill
-                    //         theme="snow"
-                    //         modules={{
-                    //           toolbar: [
-                    //             ["bold", "italic", "underline"], // Text styling
-                    //             [{ list: "ordered" }, { list: "bullet" }], // List options
-                    //           ],
-                    //         }}
-                    //         style={{ height: "100px" }}
-                    //         value={edu.description || ""}
-                    //         onChange={(e) =>
-                    //           handleNestedChange(
-                    //             "projects",
-                    //             index,
-                    //             "description",
-                    //             e
-                    //           )
-                    //         }
-                    //       />
-
-                    //       <Button
-                    //         color="error"
-                    //         onClick={() => handleDeleteItem("projects", index)}
-                    //         sx={{ mt: 1 }}
-                    //       >
-                    //         Delete Projects
-                    //       </Button>
-                    //       <Divider sx={{ my: 2 }} />
-                    //     </Box>
-                    //   ))}
-                    //   <Button
-                    //     variant="outlined"
-                    //     startIcon={<Add />}
-                    //     onClick={() =>
-                    //       handleAddItem("projects", {
-                    //         name: "",
-                    //         role: "",
-                    //         description: "",
-                    //         location: "",
-                    //         duration: "",
-                    //       })
-                    //     }
-                    //   >
-                    //     Add Projects
-                    //   </Button>
-                    // </>
                     <ProjectComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -1334,6 +788,7 @@ function TemplatePreview(props) {
                       resetForm={resetForm}
                       CustomTextBoxStyle={CustomTextBoxStyle}
                       labelStyle={labelStyle}
+                      isFormOpen={isFormOpen}
                     />
                   )}
                 </Box>

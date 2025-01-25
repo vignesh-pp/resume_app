@@ -19,7 +19,7 @@ const EducationComponent = ({
   tempEntry,
   handleChangesss,
   handleSave,
-  currentSection,
+  currentSection = "education",
   editIndex,
   resetForm,
   CustomTextBoxStyle,
@@ -34,20 +34,26 @@ const EducationComponent = ({
             <Card key={index} sx={{ mb: 2 }}>
               <CardContent className="d-flex justify-content-between">
                 <div>
-                  <Typography variant="h6">{item.institution}</Typography>
-                  <Typography variant="body2"> {item.degree}</Typography>
+                  <div style={{ fontSize: "14px", fontWeight: "bold" }}>
+                    {item.institution}
+                  </div>
+                  <div style={{ fontSize: "13px" }}>
+                    {item.degree}
+                    {item.year && " • " + item.year}
+                  </div>
                   {/* <Typography variant="body2"> {item.year}</Typography> */}
                   {/* <Typography variant="body2">{item.duration}</Typography>
                   <Typography variant="body2">{item.location}</Typography>
                   <Typography variant="body2"> {item.marks}</Typography> */}
                 </div>
                 <div>
-                  <Box>
+                  <Box style={{ fontSize: "14px" }}>
                     <EditIcon
                       sx={{
                         cursor: "pointer",
                         "&:hover": { color: "#3b82f6" },
                         color: "gray",
+                        fontSize: "16px",
                       }}
                       onClick={() => handleEdit("education", index)}
                     />
@@ -56,6 +62,7 @@ const EducationComponent = ({
                         cursor: "pointer",
                         "&:hover": { color: "#ef4444" },
                         color: "gray",
+                        fontSize: "16px",
                       }}
                       onClick={() => handleDelete("education", index)}
                     />
@@ -97,6 +104,7 @@ const EducationComponent = ({
               </Typography>
               <TextField
                 // label="Institution"
+                placeholder="Enter institution"
                 fullWidth
                 margin="normal"
                 value={tempEntry.institution}
@@ -118,6 +126,7 @@ const EducationComponent = ({
               </Typography>
               <TextField
                 // label="Degree"
+                placeholder="Enter degree"
                 fullWidth
                 margin="normal"
                 value={tempEntry.degree}
@@ -139,8 +148,10 @@ const EducationComponent = ({
               </Typography>
               <TextField
                 // label="Year"
+                placeholder="Enter year"
                 fullWidth
                 margin="normal"
+                type="date"
                 value={tempEntry.year}
                 onChange={(e) => handleChangesss("year", e.target.value)}
                 size="small"
@@ -160,6 +171,7 @@ const EducationComponent = ({
               </Typography>
               <TextField
                 // label="Year"
+                placeholder="Enter mark"
                 fullWidth
                 margin="normal"
                 value={tempEntry.marks}
