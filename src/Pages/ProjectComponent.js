@@ -21,7 +21,7 @@ const ProjectComponent = ({
   tempEntry,
   handleChangesss,
   handleSave,
-  currentSection='projects',
+  currentSection = "projects",
   editIndex,
   resetForm,
   CustomTextBoxStyle,
@@ -33,8 +33,13 @@ const ProjectComponent = ({
       <>
         {isFormOpen === null &&
           selectedTemplate.projects.value.map((item, index) => (
-            <Card key={index} sx={{ mb: 2 }}>
-              <CardContent className="d-flex justify-content-between">
+            <div
+              key={index}
+              sx={{ mb: 2 }}
+              className="p-3 bg-white"
+              style={{ border: "1px solid lightgray", marginBottom: "10px" }}
+            >
+              <div className="d-flex justify-content-between">
                 <div style={{ fontSize: "13px" }}>
                   <div style={{ fontSize: "14px", fontWeight: "bold" }}>
                     {item.name}
@@ -72,8 +77,8 @@ const ProjectComponent = ({
                     />
                   </Box>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
 
         <>
@@ -108,6 +113,7 @@ const ProjectComponent = ({
             </Typography>
             <TextField
               // label="Title"
+              placeholder="Enter project name"
               fullWidth
               margin="normal"
               value={tempEntry.name}
@@ -129,6 +135,7 @@ const ProjectComponent = ({
             </Typography>
             <TextField
               // label="Link"
+              placeholder="Enter role"
               fullWidth
               margin="normal"
               value={tempEntry.role}
@@ -150,6 +157,7 @@ const ProjectComponent = ({
             </Typography>
             <TextField
               // label="Link"
+              placeholder="Enter duration"
               type="date"
               fullWidth
               margin="normal"
@@ -171,6 +179,7 @@ const ProjectComponent = ({
               Description
             </Typography>
             <ReactQuill
+              placeholder="Enter description"
               theme="snow"
               modules={{
                 toolbar: [

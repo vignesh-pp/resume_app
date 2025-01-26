@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   TextField,
   Button,
@@ -28,13 +28,22 @@ import ProjectComponent from "../Pages/ProjectComponent";
 
 function TemplatePreview(props) {
   const { selectedTemplate, setSelectedTemplate, setActiveTab } = props;
-  const [activeStep, setActiveStep] = useState(1);
   const steps = selectedTemplate.steps;
+
+  const [activeStep, setActiveStep] = useState(steps[0]);
+  const isPreview = activeStep === "preview";
+  const currentIndex = steps.indexOf(activeStep);
   const [content, setContent] = useState("");
   const [currentSection, setCurrentSection] = useState(null); // 'education' or 'experience'
   const [editIndex, setEditIndex] = useState(null);
   const [tempEntry, setTempEntry] = useState({});
   const [isFormOpen, setIsFormOpen] = useState(null); // Tracks the open form for 'education' or 'experience'
+
+  useEffect(() => {
+    console.log("====================================");
+    console.log(steps);
+    console.log("====================================");
+  }, []);
 
   // Options for the dropdown
   const [skillOptions, setKillOptions] = useState([
@@ -184,7 +193,14 @@ function TemplatePreview(props) {
     });
   };
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    // setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    handleSave();
+    if (currentIndex === steps.length - 1) {
+      setActiveStep("preview"); // Go to Preview if on the last step
+    } else {
+      setActiveStep(steps[currentIndex + 1]); // Move to the next step
+    }
+
     // setCurrentSection('certificate')
     if (activeStep === steps.length - 1) {
       const element = document.getElementById("resume");
@@ -208,9 +224,15 @@ function TemplatePreview(props) {
   };
 
   const handleBack = () => {
-    activeStep === 1
-      ? setActiveTab(0)
-      : setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    handleSave();
+    if (isPreview) {
+      setActiveStep(steps[steps.length - 1]); // Go back to the last step from Preview
+    } else if (currentIndex > 0) {
+      setActiveStep(steps[currentIndex - 1]); // Move to the previous step
+    }
+    // activeStep === 1
+    //   ? setActiveTab(0)
+    //   : setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
@@ -393,7 +415,7 @@ function TemplatePreview(props) {
     >
       {/* Stepper */}
 
-      {activeStep !== steps.length && (
+      {!isPreview && (
         <Box
           sx={{
             background: "navy",
@@ -420,7 +442,7 @@ function TemplatePreview(props) {
         }}
       >
         {/* preview header */}
-        {activeStep !== steps.length && (
+        {!isPreview && (
           <Box
             sx={{
               display: "flex",
@@ -435,9 +457,7 @@ function TemplatePreview(props) {
               gutterBottom
               style={{ marginLeft: "10px" }}
             >
-              {steps[activeStep] &&
-                steps[activeStep].label &&
-                steps[activeStep].label}
+              {activeStep}
             </Typography>
 
             {/* Buttons */}
@@ -445,7 +465,8 @@ function TemplatePreview(props) {
               <Button
                 variant="outlined"
                 onClick={handleBack}
-                disabled={activeStep === 0}
+                // disabled={activeStep === 0}
+                disabled={currentIndex === 0 && !isPreview} // Disable if at the first step
                 sx={{ mr: 2 }}
               >
                 Back
@@ -453,13 +474,15 @@ function TemplatePreview(props) {
               <Button
                 variant="contained"
                 onClick={handleNext}
-                disabled={activeStep === steps.length}
+                // disabled={activeStep === steps.length}
+                disabled={isPreview}
                 // sx={{ mr: 2 }}
               >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                {/* {activeStep === steps.length - 1 ? "Finish" : "Next"} */}
+                {currentIndex === steps.length - 1 ? "Finish" : "Next"}
               </Button>
 
-              {activeStep === steps.length && (
+              {/* {activeStep === steps.length && (
                 <Button
                   onClick={handleReset}
                   variant="outlined"
@@ -467,7 +490,7 @@ function TemplatePreview(props) {
                 >
                   Reset
                 </Button>
-              )}
+              )} */}
             </Box>
           </Box>
         )}
@@ -479,7 +502,7 @@ function TemplatePreview(props) {
             padding: 2,
           }}
         >
-          {activeStep !== steps.length && (
+          {!isPreview && (
             <>
               <Box style={{ width: "60%" }}>
                 {/* Form for Editing */}
@@ -491,7 +514,7 @@ function TemplatePreview(props) {
                     borderRadius: 2,
                   }}
                 >
-                  {activeStep === 1 && (
+                  {!isPreview && activeStep === "Personal Details" && (
                     <>
                       <Box
                         sx={{
@@ -658,7 +681,7 @@ function TemplatePreview(props) {
                     </>
                   )}
 
-                  {activeStep === 2 && (
+                  {!isPreview && activeStep === "Summary" && (
                     <Box>
                       <div className="d-flex">
                         <ReactQuill
@@ -679,7 +702,7 @@ function TemplatePreview(props) {
                     </Box>
                   )}
                   {/* Skills */}
-                  {activeStep === 3 && (
+                  {!isPreview && activeStep === "Skills" && (
                     <>
                       {typeof selectedTemplate.skills?.value === "object" ? (
                         // <textarea
@@ -738,7 +761,7 @@ function TemplatePreview(props) {
                     </>
                   )}
                   {/* Education */}
-                  {activeStep === 4 && (
+                  {!isPreview && activeStep === "Education" && (
                     <EducationComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -756,7 +779,7 @@ function TemplatePreview(props) {
                     />
                   )}
                   {/* Certificates */}
-                  {activeStep === 5 && (
+                  {!isPreview && activeStep === "Certificate" && (
                     <CertificateComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -775,7 +798,7 @@ function TemplatePreview(props) {
                   )}
 
                   {/* Experience */}
-                  {activeStep === 6 && (
+                  {!isPreview && activeStep === "Experience" && (
                     <ExperienceComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -794,7 +817,7 @@ function TemplatePreview(props) {
                   )}
 
                   {/* Projects */}
-                  {activeStep === 7 && (
+                  {!isPreview && activeStep === "Projects" && (
                     <ProjectComponent
                       selectedTemplate={selectedTemplate}
                       handleEdit={handleEdit}
@@ -832,7 +855,7 @@ function TemplatePreview(props) {
 
           {/* Rendered Resume */}
 
-          {activeStep === steps.length && (
+          {isPreview && (
             <div className="container d-flex justify-content-between">
               {" "}
               {/* <Box className="col-3 text-center">
@@ -930,7 +953,7 @@ function TemplatePreview(props) {
                     <Button
                       key={index}
                       style={{
-                        display: index === 0 ? "none" : "block",
+                        // display: index === 0 ? "none" : "block",
                         border: "1px solid gray",
                         textAlign: "center",
                         gridColumn:
@@ -938,10 +961,10 @@ function TemplatePreview(props) {
                             ? "1 / -1"
                             : "auto",
                       }}
-                      onClick={() => setActiveStep(index)}
+                      onClick={() => setActiveStep(step)}
                       startIcon={step.icon}
                     >
-                      <span>{step.label}</span>
+                      <span>{step}</span>
                     </Button>
                   ))}
                 </div>

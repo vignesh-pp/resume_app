@@ -32,8 +32,13 @@ const ExperienceComponent = ({
     <Box>
       {isFormOpen === null &&
         selectedTemplate.experience.value.map((item, index) => (
-          <Card key={index} sx={{ mb: 2 }}>
-            <CardContent className="d-flex justify-content-between">
+          <div
+            key={index}
+            sx={{ mb: 2 }}
+            className="p-3 bg-white"
+            style={{ border: "1px solid lightgray", marginBottom: "10px" }}
+          >
+            <div className="d-flex justify-content-between">
               <div style={{ fontSize: "13px" }}>
                 <div style={{ fontSize: "14px", fontWeight: "bold" }}>
                   {item.company}
@@ -72,8 +77,8 @@ const ExperienceComponent = ({
                   />
                 </Box>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </div>
         ))}
       <Button
         variant="contained"
@@ -104,6 +109,7 @@ const ExperienceComponent = ({
               </Typography>
               <TextField
                 // label="Title"
+                placeholder="Enter position"
                 fullWidth
                 margin="normal"
                 value={tempEntry.position}
@@ -127,6 +133,7 @@ const ExperienceComponent = ({
                 // label="Link"
                 fullWidth
                 margin="normal"
+                placeholder="Enter company"
                 value={tempEntry.company}
                 onChange={(e) => handleChangesss("company", e.target.value)}
                 size="small"
@@ -146,6 +153,7 @@ const ExperienceComponent = ({
               </Typography>
               <TextField
                 // label="Link"
+                placeholder="Enter location"
                 fullWidth
                 margin="normal"
                 value={tempEntry.location}
@@ -167,6 +175,8 @@ const ExperienceComponent = ({
               </Typography>
               <TextField
                 // label="Link"
+                placeholder="Enter duration"
+                type="date"
                 fullWidth
                 margin="normal"
                 value={tempEntry.duration}
@@ -190,6 +200,7 @@ const ExperienceComponent = ({
               <ReactQuill
                 theme="snow"
                 // ref={editorRef}
+                placeholder="Enter responsibilities"
                 modules={{
                   toolbar: [
                     ["bold", "italic", "underline"], // Text styling

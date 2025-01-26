@@ -31,8 +31,13 @@ const CertificateComponent = ({
       <>
         {isFormOpen === null &&
           selectedTemplate.certificate.value.map((item, index) => (
-            <Card key={index} sx={{ mb: 2 }}>
-              <CardContent className="d-flex justify-content-between">
+            <div
+              key={index}
+              sx={{ mb: 2 }}
+              className="p-3 bg-white"
+              style={{ border: "1px solid lightgray", marginBottom: "10px" }}
+            >
+              <div className="d-flex justify-content-between">
                 <div>
                   <div style={{ fontSize: "14px", fontWeight: "bold" }}>
                     {item.name}
@@ -65,8 +70,8 @@ const CertificateComponent = ({
                     />
                   </Box>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
 
         <>
