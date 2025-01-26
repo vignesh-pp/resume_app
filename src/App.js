@@ -10,6 +10,7 @@ import SignUp from "./Pages/Signup";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "./Pages/store"; // Import the store and persistor
+import NotFound from "./Pages/NotFound";
 
 function App() {
   return (
@@ -23,7 +24,8 @@ function App() {
               <Route path="/create" element={<Template />} />
               <Route path="/home" element={<Home />} />
               <Route path="/testing" element={<ResumeTemplate />} />
-              {/* <Route path="*" element={<NotFound />} /> */}
+              {/* 404 route for unmatched paths */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
         </PersistGate>

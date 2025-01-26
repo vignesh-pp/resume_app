@@ -34,9 +34,12 @@ const ExperienceComponent = ({
         selectedTemplate.experience.value.map((item, index) => (
           <div
             key={index}
-            sx={{ mb: 2 }}
-            className="p-3 bg-white"
-            style={{ border: "1px solid lightgray", marginBottom: "10px" }}
+            className="p-3"
+            style={{
+              border: "1px solid lightgray",
+              marginBottom: "10px",
+              background: "#f5f5f5",
+            }}
           >
             <div className="d-flex justify-content-between">
               <div style={{ fontSize: "13px" }}>

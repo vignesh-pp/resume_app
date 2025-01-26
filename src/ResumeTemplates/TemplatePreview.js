@@ -242,8 +242,9 @@ function TemplatePreview(props) {
   const CustomTextBoxStyle = {
     marginTop: "0px",
     "& .MuiOutlinedInput-root": {
-      borderRadius: "10px", // Rounded corners
+      borderRadius: "3px", // Rounded corners
       backgroundColor: "white", // Light background
+      backgroundColor: "#f5f5f5",
       marginTop: "0px",
       outLine: "none",
       "&.Mui-focused": {
@@ -256,9 +257,16 @@ function TemplatePreview(props) {
       "&:hover fieldset": {
         // borderColor: "#1e88e5", // Border color on hover
       },
+      "& .MuiInputBase-input": {
+        fontSize: "12px", // Smaller font size for the input text
+      },
     },
     "& .MuiInputLabel-root": {
       // color: "#757575", // Label color
+    },
+    "& .MuiInputLabel-root": {
+      // color: "#757575", // Label color
+      fontSize: "12px", // Smaller font size for the label
     },
     "& .MuiInputLabel-root.Mui-focused": {
       // color: "#1e88e5", // Label color when focused
@@ -466,16 +474,20 @@ function TemplatePreview(props) {
                 variant="outlined"
                 onClick={handleBack}
                 // disabled={activeStep === 0}
-                disabled={currentIndex === 0 && !isPreview} // Disable if at the first step
+                disabled={
+                  (currentIndex === 0 && !isPreview) || currentSection !== null
+                } // Disable if at the first step
                 sx={{ mr: 2 }}
               >
                 Back
               </Button>
               <Button
                 variant="contained"
-                onClick={handleNext}
+                onClick={() => {
+                  currentSection === null && handleNext();
+                }}
                 // disabled={activeStep === steps.length}
-                disabled={isPreview}
+                disabled={isPreview || currentSection !== null}
                 // sx={{ mr: 2 }}
               >
                 {/* {activeStep === steps.length - 1 ? "Finish" : "Next"} */}
@@ -573,7 +585,8 @@ function TemplatePreview(props) {
                         </Typography>
                         <TextField
                           // label="Email"
-                          placeholder="Email"
+                          type="email"
+                          placeholder="Enter email"
                           fullWidth
                           margin="normal"
                           value={selectedTemplate.personaldetails.email}
@@ -590,6 +603,7 @@ function TemplatePreview(props) {
                         </Typography>
                         <TextField
                           // label="Phone"
+                          type="number"
                           placeholder="Enter phone number"
                           fullWidth
                           margin="normal"
@@ -663,6 +677,7 @@ function TemplatePreview(props) {
                           </Typography>
                           <TextField
                             // label="Pincode"
+                            type="number"
                             placeholder="Enter pincode"
                             fullWidth
                             margin="normal"
@@ -843,6 +858,7 @@ function TemplatePreview(props) {
                   height: "450px",
                   overflow: "auto",
                   // height: document?.documentElement?.scrollHeight - 300 + "px",
+                  // Cursor: "grab",
                 }}
               >
                 <SelectedTemplate
