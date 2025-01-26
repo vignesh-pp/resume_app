@@ -90,21 +90,27 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
           <div className="starting">
             <div className="starting-left">
               <h1
-                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+                style={{
+                  color: "#16365f",
+                  fontSize: isPreview ? "13px" : "20px",
+                }}
               >
                 {selectedTemplate.personaldetails.firstname +
                   " " +
                   selectedTemplate.personaldetails.lastname}
               </h1>
               <h4
-                style={{ color: "#d4731b", fontSize: isPreview ? "12px" : "" }}
+                style={{
+                  color: "#d4731b",
+                  fontSize: isPreview ? "13px" : "18px",
+                }}
               >
                 {selectedTemplate?.personaldetails?.role || "Software Engineer"}
               </h4>
             </div>
             <div
               className="starting-right"
-              style={{ fontSize: isPreview ? "10px" : "" }}
+              style={{ fontSize: isPreview ? "9px" : "14px" }}
             >
               <div className="right-align" style={{ color: "#999999" }}>
                 {selectedTemplate?.personaldetails?.phone}
@@ -126,14 +132,16 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               borderTop: "2px solid #d4731b",
             }}
           />
-          <h5 style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}>
+          <h5
+            style={{ color: "#16365f", fontSize: isPreview ? "13px" : "16px" }}
+          >
             PROFESSIONAL PROFILE
           </h5>
           <p
             dangerouslySetInnerHTML={{
               __html: selectedTemplate.summary.value,
             }}
-            style={{ color: "#999999", fontSize: isPreview ? "10px" : "" }}
+            style={{ color: "#999999", fontSize: isPreview ? "9px" : "14px" }}
           />
           <hr
             style={{
@@ -141,14 +149,19 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               borderTop: "2px solid lightgray",
             }}
           />
-          <h5 style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}>
+          <h5
+            style={{ color: "#16365f", fontSize: isPreview ? "13px" : "16px" }}
+          >
             TECH SKILLS
           </h5>
           <div className="skills">
             {selectedTemplate?.skills?.value?.map((skill, index) => (
               <p
                 className="skill"
-                style={{ fontSize: isPreview ? "10px" : "" }}
+                style={{
+                  fontSize: isPreview ? "9px" : "14px",
+                  margin: isPreview ? "6px 0" : "10px 0",
+                }}
                 key={skill}
               >
                 {skill}
@@ -164,17 +177,23 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
           <div className="starting" style={{ alignItems: "flex-start" }}>
             <div className="starting-left">
               <h5
-                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+                style={{
+                  color: "#16365f",
+                  fontSize: isPreview ? "13px" : "16px",
+                }}
               >
                 EDUCATION
               </h5>
 
               {selectedTemplate.education?.value.map((edu, index) => (
-                <div key={index} style={{ fontSize: isPreview ? "10px" : "" }}>
+                <div
+                  key={index}
+                  style={{ fontSize: isPreview ? "9px" : "14px" }}
+                >
                   <div
                     style={{
                       color: "#d4731b",
-                      fontSize: isPreview ? "12px" : "",
+                      fontSize: isPreview ? "10px" : "15px",
                     }}
                   >
                     {edu.degree}
@@ -187,7 +206,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               <h5
                 style={{
                   color: "#16365f",
-                  fontSize: isPreview ? "14px" : "",
+                  fontSize: isPreview ? "13px" : "16px",
                   marginTop: isPreview ? "10px" : "20px",
                 }}
               >
@@ -197,7 +216,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
                 <div
                   key={index}
                   style={{
-                    fontSize: isPreview ? "10px" : "",
+                    fontSize: isPreview ? "9px" : "14px",
                     marginTop: index === 0 ? "0px" : "10px",
                   }}
                 >
@@ -212,7 +231,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
               <h5
                 style={{
                   color: "#16365f",
-                  fontSize: isPreview ? "14px" : "",
+                  fontSize: isPreview ? "13px" : "16px",
                   marginTop: isPreview ? "10px" : "20px",
                 }}
               >
@@ -222,7 +241,7 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
                 <div
                   key={index}
                   style={{
-                    fontSize: isPreview ? "10px" : "",
+                    fontSize: isPreview ? "9px" : "14px",
                     marginTop: index === 0 ? "0px" : "10px",
                   }}
                 >
@@ -242,12 +261,18 @@ const Resume1 = ({ selectedTemplate, isPreview = true }) => {
             <div className="starting-right">
               <h5
                 className="right-align"
-                style={{ color: "#16365f", fontSize: isPreview ? "14px" : "" }}
+                style={{
+                  color: "#16365f",
+                  fontSize: isPreview ? "13px" : "16px",
+                }}
               >
                 CERTIFICATIONS / TRAINING
               </h5>
               {selectedTemplate?.certificate?.value.map((cert, index) => (
-                <div key={index} style={{ fontSize: isPreview ? "10px" : "" }}>
+                <div
+                  key={index}
+                  style={{ fontSize: isPreview ? "9px" : "14px" }}
+                >
                   <div className="right-align" style={{ color: "#678a50" }}>
                     {cert.name}
                   </div>

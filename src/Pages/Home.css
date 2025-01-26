@@ -17,7 +17,7 @@
   /* Neon effect styles */
   
   .neon {
-    color: #fff;
+    /* color: #fff; */
     text-shadow:
       0 0 5px #fff,
       0 0 10px #fff,
@@ -151,17 +151,17 @@
   }
   
   .content-container p {
-    color: white;
+    /* color: white; */
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.7); 
   }
   
   .btn-outline-info {
-    color: #0ff;
-    border-color: #0ff;
+    /* color: #0ff; */
+    /* border-color: #0ff; */
   }
   
   .btn-outline-info:hover {
-    background-color: #0ff;
+    /* background-color: #0ff; */
     color: #000;
   }
   

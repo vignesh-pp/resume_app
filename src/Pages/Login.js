@@ -3,8 +3,11 @@ import "./Login.css"; // Import the CSS file for styling
 // import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -25,6 +28,8 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Data Submitted:", formData);
+    dispatch({ type: "SET_USER", formData });
+
     const isAuthenticated = true; // Replace with actual authentication logic
 
     // axios

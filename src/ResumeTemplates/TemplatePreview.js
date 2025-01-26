@@ -18,6 +18,7 @@ import TemplateStyles from "./TemplateStyles";
 import CreatableSelect from "react-select/creatable";
 import { Chip } from "@mui/material";
 import html2pdf from "html2pdf.js";
+import html2canvas from "html2canvas";
 // import { jsPDF } from "jspdf";
 import DownloadForOfflineIcon from "@mui/icons-material/DownloadForOffline";
 import EducationComponent from "../Pages/EducationComponent";
@@ -185,6 +186,25 @@ function TemplatePreview(props) {
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     // setCurrentSection('certificate')
+    if (activeStep === steps.length - 1) {
+      const element = document.getElementById("resume");
+
+      const bloboptions = {
+        scale: 2, // Higher scale for better quality
+      };
+
+      // Use html2canvas to convert the element to an image
+      html2canvas(element, bloboptions)
+        .then((canvas) => {
+          // Convert the canvas to a data URL
+          const imgDataUrl = canvas.toDataURL("image/png");
+          selectedTemplate.template_thumbnail = imgDataUrl;
+          console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+          console.log(selectedTemplate);
+          console.log("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        })
+        .catch((error) => console.error("Image generation failed:", error));
+    }
   };
 
   const handleBack = () => {
@@ -850,7 +870,6 @@ function TemplatePreview(props) {
                     padding: "10px",
                   }}
                   onClick={() => {
-                    console.log("save", selectedTemplate);
                     const element = document.getElementById("resume");
                     console.log(element);
                     const options = {
@@ -871,6 +890,7 @@ function TemplatePreview(props) {
                       .output("blob") // Ensure the output is a Blob
                       .then((pdfBlob) => {
                         console.log(pdfBlob);
+                        console.log("save", selectedTemplate);
 
                         // Create a URL for the Blob and open it in a new tab
                         const pdfUrl = URL.createObjectURL(pdfBlob);

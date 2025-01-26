@@ -16,6 +16,7 @@ import MailIcon from "@mui/icons-material/Mail";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { useSelector, useDispatch } from "react-redux";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -60,11 +61,13 @@ const darkTheme = createTheme({
   palette: {
     mode: "light",
     primary: {
-      main: "#FFFFFF",
+      main: "#ceeeff",
     },
   },
 });
 export default function Navbar() {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -86,6 +89,11 @@ export default function Navbar() {
 
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    window.location.href = "/";
   };
 
   const menuId = "primary-search-account-menu";
@@ -198,6 +206,7 @@ export default function Navbar() {
               noWrap
               component="div"
               sx={{ display: { xs: "none", sm: "block" }, marginLeft: 2 }}
+              onClick={handleLogout}
             >
               Hi Vignesh!
             </Typography>
