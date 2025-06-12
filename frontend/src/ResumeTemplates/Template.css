@@ -1,0 +1,42 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  /* background: #f9fafb; */
+  background: linear-gradient(180deg, #fff 0%, #ceeeff 100%),
+
+}
+
+p {
+  margin: 10px 0;
+}
+
+button {
+  text-transform: none !important;
+}
+
+.ql-editor,
+.ql-toolbar,
+.ql-container {
+  background-color: #f9fafb;
+  /* border:1px solid #42a5f5 !important; */
+}
+
+.ql-container {
+  border-radius: 0px 0px 3px 3px;
+  /* border:1px solid #42a5f5 !important; */
+}
+
+.ql-editor {
+  border-radius: 0px 0px 3px 3px;
+  /* border:1px solid #42a5f5 !important; */
+}
+
+.ql-toolbar {
+  border-radius: 3px 3px 0px 0px;
+  /* border:1.5px solid #42a5f5 !important; */
+}
+
+input{
+  color: gray !important;
+}
